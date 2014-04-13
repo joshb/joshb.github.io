@@ -1,0 +1,228 @@
+/*
+ *= require_self
+ */
+
+@import url(http://fonts.googleapis.com/css?family=PT+Serif);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono);
+
+html
+{
+    width: 100%;
+    height: 100%;
+    background-color: #efefef;
+    color: black;
+}
+
+body
+{
+    width: 1000px;
+    margin: auto;
+    padding: 0 16px 0 16px;
+    background-color: white;
+    /*background: -webkit-linear-gradient(top, #ddd 0, #ccc 15px, white 100px);
+    background: -moz-linear-gradient(top, #ddd 0, #ccc 15px, white 100px);
+    background: linear-gradient(top, #ddd 0, #ccc 15px, white 100px);*/
+    color: black;
+    font-family: PT Serif, Times New Roman, Times, serif;
+    font-size: 10pt;
+    box-shadow: 0 0 16px gray;
+}
+
+h1, h2, h3, h4, #menu
+{
+    font-family: Open Sans, Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4
+{
+    margin: 0.1em 0 0.1em 0;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px #bbb;
+}
+
+h1
+{
+    margin: 0;
+    padding-top: 12px;
+    font-size: 190%;
+}
+
+h1 a:link, h1 a:active, h1 a:visited
+{
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+}
+
+h2
+{
+    font-size: 130%;
+}
+
+p
+{
+    margin-top: 0;
+}
+
+a:link
+{
+    background-color: transparent;
+    color: #0000dd;
+}
+
+a:visited
+{
+    background-color: transparent;
+    color: #000088;
+}
+
+a:hover
+{
+    background-color: transparent;
+    color: #5555ff;
+}
+
+td
+{
+    vertical-align: top;
+}
+
+#menu
+{
+    position: relative;
+    border-bottom: solid 2px #ccc;
+}
+
+#menu a:link, #menu a:active, #menu a:visited
+{
+    display: inline-block;
+    margin-right: 0.5em;
+    border-bottom: solid 2px transparent;
+    background-color: transparent;
+    color: inherit;
+    text-decoration: none;
+    -webkit-transition: border-color 0.2s;
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
+}
+
+#menu a:hover
+{
+    border-color: black;
+}
+
+#content
+{
+    margin: auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    min-height: 20em;
+}
+
+#footer
+{
+    padding: 1em;
+    font-size: 8pt;
+    text-align: center;
+}
+
+li p
+{
+    margin: 0.25em 0 1em 0;
+}
+
+.CodeDisplay
+{
+    overflow: auto;
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 600px;
+    height: 300px;
+    padding: 8px;
+    border: solid 2px #505050;
+    background-color: white;
+    color: black;
+    z-index: 1;
+}
+
+pre
+{
+    padding-left: 1em;
+    border-left: solid 2px black;
+    font-family: Ubuntu Mono, monospace;
+}
+
+table.BorderedTable
+{
+    border-collapse: collapse;
+}
+
+table.BorderedTable th, table.BorderedTable td
+{
+    padding: 4px;
+    border: solid 1px black;
+}
+
+@media screen and (max-device-width: 640px)
+{
+    html, body
+    {
+        background-color: white;
+        color: black;
+    }
+
+    body
+    {
+        width: auto;
+        box-shadow: none;
+    }
+
+    img
+    {
+        max-width: 100%;
+    }
+}
+
+@media print
+{
+    html, body
+    {
+        background-color: white;
+        color: black;
+    }
+
+    body
+    {
+        width: auto;
+        box-shadow: none;
+    }
+
+    h1, h2, h3, h4
+    {
+        text-shadow: none;
+    }
+
+    #menu
+    {
+        display: none;
+    }
+
+    h1, #content
+    {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #content
+    {
+        border: 0;
+    }
+
+    #footer
+    {
+        border: 0;
+    }
+}

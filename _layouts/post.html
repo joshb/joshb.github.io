@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>blog - {{ page.title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale = 1.0" />
+  <title>{{ page.title }} - joshbeam.com</title>
+  <link href="{{ site.url }}/stylesheets/application.css" media="all" rel="stylesheet" />
+  <link href="{{ site.url }}/stylesheets/syntax.css" media="all" rel="stylesheet" />
 </head>
 <body>
 
-{{ content }}
+<h1><a href="/">Josh Beam&#39;s Website</a></h1>
+
+<div id="menu">
+  <a href="/">home</a>
+  <a href="/articles">articles</a>
+  <a href="/software">software</a>
+  <a href="mailto:josh@joshbeam.com">email</a>
+  <a href="https://github.com/joshb">github</a>
+</div>
+
+<div id="content">
+  <h2>{{ page.title }}</h2>
+
+  {{ content }}
+</div>
+
+<div id="footer">
+  Copyright &copy; 2002-2014 Josh Beam
+</div>
 
 </body>
 </html>
