@@ -24,10 +24,10 @@
 
   {% if page.date %}
   <h3>
-    {{ page.date }}
+    {{ page.date | date: "%B %-d, %Y" }}
 
     {% if page.last_updated_date %}
-    (last updated {{ page.last_updated_date }})
+    (last updated {{ page.last_updated_date | date: "%B %-d, %Y" }})
     {% endif %}
   </h3>
   {% endif %}
