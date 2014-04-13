@@ -22,6 +22,16 @@
 <div id="content">
   <h2>{{ page.title }}</h2>
 
+  {% if page.date %}
+  <h3>
+    {{ page.date }}
+
+    {% if page.last_updated_date %}
+    (last updated {{ page.last_updated_date }})
+    {% endif %}
+  </h3>
+  {% endif %}
+
   {{ content }}
 </div>
 
