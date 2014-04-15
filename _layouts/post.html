@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale = 1.0" />
+  {% if page.title %}
   <title>{{ page.title }} - joshbeam.com</title>
+  {% else %}
+  <title>joshbeam.com</title>
+  {% endif %}
   <link href="{{ site.url }}/stylesheets/application.css" media="all" rel="stylesheet" />
   <link href="{{ site.url }}/stylesheets/syntax.css" media="all" rel="stylesheet" />
 </head>
@@ -20,7 +24,9 @@
 </div>
 
 <div id="content">
+  {% if page.title %}
   <h2>{{ page.title }}</h2>
+  {% endif %}
 
   {% if page.date %}
   <h3>
