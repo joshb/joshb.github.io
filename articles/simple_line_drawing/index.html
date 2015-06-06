@@ -203,7 +203,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
     <p>Next, we have the following <em>if</em> statement, which checks if the absolute value of <strong>xdiff</strong> is greater than the absolute value of <strong>ydiff</strong>:</p>
 
 {% highlight c++ %}
-    if(fabs(xdiff) > fabs(ydiff)) {
+​    if(fabs(xdiff) > fabs(ydiff)) {
 {% endhighlight %}
 
     <p>The basic method of line rendering is to loop through each whole number between the points in one dimension (x or y) and calculate the corresponding position in the other dimension using the line's slope. If there are more points in the x dimension (that is, the <em>if</em> condition above passes), we will loop through the points in the x dimension and calculate the corresponding y values; otherwise, we'll loop through the points in the y dimension and calculate the corresponding x values. Handling these two cases separately is necessary to prevent gaps in the line.</p>
@@ -211,7 +211,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
     <p>To draw the line in terms of the x dimension, we must first figure out the minimum and maximum x values that were passed to the function, since x2 may be lower than x1 and vice versa:</p>
 
 {% highlight c++ %}
-        float xmin, xmax;
+​        float xmin, xmax;
 
         // set xmin to the lower x value given
         // and xmax to the higher value
@@ -227,7 +227,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
     <p>Next, we calculate the slope (or tangent) of the line and loop through each whole number between the minimum/maximum x values to draw it:</p>
 
 {% highlight c++ %}
-        // draw line in terms of y slope
+​        // draw line in terms of y slope
         float slope = ydiff / xdiff;
         for(float x = xmin; x <= xmax; x += 1.0f) {
             float y = y1 + ((x - x1) * slope);
@@ -243,7 +243,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
     <p>The <strong>SetPixel()</strong> function is then called to draw the pixels and we're done - at least when it comes to rendering in terms of the x dimension. The other case, rendering in terms of the y dimension, is very similar:</p>
 
 {% highlight c++ %}
-    } else {
+​    } else {
         float ymin, ymax;
 
         // set ymin to the lower y value given
