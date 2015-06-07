@@ -4,7 +4,6 @@
 
 @import url(http://fonts.googleapis.com/css?family=PT+Serif);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono);
 
 html
 {
@@ -26,7 +25,7 @@ body
     box-shadow: 0 0 16px gray;
 }
 
-h1, h2, h3, h4, #menu
+header, h1, h2, h3, h4
 {
     font-family: Open Sans, Arial, Helvetica, sans-serif;
 }
@@ -92,13 +91,13 @@ td
     vertical-align: top;
 }
 
-#menu
+nav
 {
     position: relative;
     border-bottom: solid 2px #ccc;
 }
 
-#menu a:link, #menu a:active, #menu a:visited
+nav a:link, nav a:active, nav a:visited
 {
     display: inline-block;
     margin-right: 0.5em;
@@ -111,7 +110,7 @@ td
     -o-transition: border-color 0.2s;
 }
 
-#menu a:hover
+nav a:hover
 {
     border-color: black;
 }
@@ -124,7 +123,7 @@ td
     min-height: 20em;
 }
 
-#footer
+footer
 {
     padding: 1em;
     font-size: 8pt;
@@ -156,7 +155,11 @@ pre
 {
     padding-left: 1em;
     border-left: solid 2px black;
-    font-family: Ubuntu Mono, monospace;
+}
+
+code
+{
+    font-family: Menlo, monospace;
 }
 
 table.BorderedTable
@@ -209,7 +212,7 @@ table.BorderedTable th, table.BorderedTable td
         text-shadow: none;
     }
 
-    #menu
+    nav
     {
         display: none;
     }
@@ -225,7 +228,7 @@ table.BorderedTable th, table.BorderedTable td
         border: 0;
     }
 
-    #footer
+    footer
     {
         border: 0;
     }
