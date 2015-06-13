@@ -7,7 +7,7 @@
 
 body
 {
-    margin: 2em;
+    margin: 0.5em;
     background-color: #efefef;
     color: black;
     font-family: PT Serif, Times New Roman, Times, serif;
@@ -18,10 +18,6 @@ body
 {
     width: 1000px;
     margin: auto;
-    padding: 0 16px 0 16px;
-    background-color: white;
-    color: black;
-    box-shadow: 0 0 16px gray;
 }
 
 header, h1, h2, h3, h4
@@ -39,7 +35,6 @@ h1, h2, h3, h4
 h1
 {
     margin: 0;
-    padding-top: 12px;
     font-size: 190%;
 }
 
@@ -93,7 +88,6 @@ td
 nav
 {
     position: relative;
-    border-bottom: solid 2px #ccc;
 }
 
 nav a:link, nav a:active, nav a:visited
@@ -116,10 +110,12 @@ nav a:hover
 
 #content
 {
-    margin: auto;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    margin-top: 0.5em;
+    padding: 12px 16px 12px 16px;
     min-height: 20em;
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 16px #999;
 }
 
 footer
@@ -176,7 +172,6 @@ table.BorderedTable th, table.BorderedTable td
 {
     body
     {
-        margin: 0;
         background-color: white;
         color: black;
     }
@@ -184,6 +179,11 @@ table.BorderedTable th, table.BorderedTable td
     #page
     {
         width: auto;
+    }
+
+    #content
+    {
+        padding: 0;
         box-shadow: none;
     }
 
@@ -205,6 +205,10 @@ table.BorderedTable th, table.BorderedTable td
     #page
     {
         width: auto;
+    }
+
+    #content
+    {
         box-shadow: none;
     }
 
@@ -216,17 +220,6 @@ table.BorderedTable th, table.BorderedTable td
     nav
     {
         display: none;
-    }
-
-    h1, #content
-    {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    #content
-    {
-        border: 0;
     }
 
     footer
