@@ -176,6 +176,7 @@ table.BorderedTable th, table.BorderedTable td
 {
     body
     {
+        margin: 0;
         background-color: white;
         color: black;
     }
@@ -196,6 +197,7 @@ table.BorderedTable th, table.BorderedTable td
 {
     body
     {
+        margin: 0;
         background-color: white;
         color: black;
     }
