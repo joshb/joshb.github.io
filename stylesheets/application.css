@@ -50,6 +50,11 @@ h2
     font-size: 130%;
 }
 
+h2 a:link, h2 a:active, h2 a:visited
+{
+    text-decoration: none;
+}
+
 h3
 {
     font-size: 100%;

@@ -2,6 +2,15 @@
 layout: post
 title: Home
 ---
-<p>Welcome to joshbeam.com. You can find some of the software that I've developed on the <a href="software">software</a> page. I've also written some articles, mostly related to 3D graphics programming, which can be found on the <a href="articles">articles</a> page.</p>
+<p>Welcome to my website. I'm a software engineer whose interests include web development, 3D graphics programming, Linux, and Apple's platforms. I've written some <a href="articles">articles</a> over the years, primarily related to OpenGL. I've also written some <a href="software">open source software</a> that you may find interesting (see <a href="https://github.com/joshb">my GitHub profile</a> for more).</p>
 
-<p>I can be contacted by email at <a href="mailto:josh@joshbeam.com">josh@joshbeam.com</a>.</p>
+<p>To learn more about my education and professional experience, feel free to visit me at <a href="https://www.linkedin.com/in/joshbeam">LinkedIn</a>. I can be contacted by email at <a href="mailto:josh@joshbeam.com">josh@joshbeam.com</a>.</p>
+
+<hr>
+
+{% for post in site.posts limit: 10 %}
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <h3>{{ post.date | date: "%B %-d, %Y" }}</h3>
+
+    {{ post.content }}
+{% endfor %}
