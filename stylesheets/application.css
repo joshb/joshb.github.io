@@ -2,27 +2,19 @@
  *= require_self
  */
 
-@import url(http://fonts.googleapis.com/css?family=PT+Serif);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600);
-
 body
 {
-    margin: 0.5em;
-    background-color: #efefef;
+    margin: 0;
+    background-color: white;
     color: black;
-    font-family: PT Serif, Times New Roman, Times, serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 10pt;
+    -webkit-text-size-adjust: none;
 }
 
-#page
+hr
 {
-    width: 1000px;
-    margin: auto;
-}
-
-header, h1, h2, h3, h4
-{
-    font-family: Open Sans, Arial, Helvetica, sans-serif;
+    margin: 2em 0 2em 0;
 }
 
 h1, h2, h3, h4
@@ -38,20 +30,16 @@ h1
     font-size: 190%;
 }
 
-h1 a:link, h1 a:active, h1 a:visited
-{
-    background-color: transparent;
-    color: inherit;
-    text-decoration: none;
-}
-
 h2
 {
     font-size: 130%;
 }
 
+h1 a:link, h1 a:active, h1 a:visited,
 h2 a:link, h2 a:active, h2 a:visited
 {
+    background-color: transparent;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -90,9 +78,23 @@ td
     vertical-align: top;
 }
 
-nav
+header
 {
-    position: relative;
+    position: fixed;
+    width: 100%;
+    padding: 1em 0 1em 0;
+    border-bottom: solid 1px #dfdfdf;
+    background-color: rgba(240, 240, 240, 0.9);
+    color: inherit;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+h1, nav, #content
+{
+    max-width: 1000px;
+    padding: 0 16px 0 16px;
+    margin: auto;
 }
 
 nav a:link, nav a:active, nav a:visited
@@ -103,9 +105,6 @@ nav a:link, nav a:active, nav a:visited
     background-color: transparent;
     color: inherit;
     text-decoration: none;
-    -webkit-transition: border-color 0.2s;
-    -moz-transition: border-color 0.2s;
-    -o-transition: border-color 0.2s;
 }
 
 nav a:hover
@@ -115,12 +114,20 @@ nav a:hover
 
 #content
 {
-    margin-top: 0.5em;
-    padding: 12px 16px 12px 16px;
-    min-height: 20em;
-    background-color: white;
-    color: black;
-    box-shadow: 0 0 16px #999;
+    padding-top: 7em;
+}
+
+.photo
+{
+    float: right;
+    padding: 1em;
+}
+
+.photo > img
+{
+    border: solid 1px black;
+    width: 150px;
+    box-shadow: 2px 2px 12px black;
 }
 
 footer
@@ -128,6 +135,8 @@ footer
     padding: 1em;
     font-size: 8pt;
     text-align: center;
+    color: #a0a0a0;
+    background-color: transparent;
 }
 
 li p
@@ -154,7 +163,12 @@ li p
 pre
 {
     padding-left: 1em;
-    border-left: solid 2px black;
+    border-left: solid 2px #d0d0d0;
+}
+
+figure.highlight
+{
+    margin-left: 0;
 }
 
 code
@@ -175,51 +189,38 @@ table.BorderedTable th, table.BorderedTable td
 
 @media screen and (max-device-width: 640px)
 {
-    body
+    header
     {
-        background-color: white;
-        color: black;
-    }
-
-    #page
-    {
-        width: auto;
+        position: static;
     }
 
     #content
     {
-        padding: 0;
-        box-shadow: none;
+        padding-top: 1em;
     }
 
     img
     {
         max-width: 100%;
     }
+
+    .photo > img
+    {
+        width: 100px;
+    }
 }
 
 @media print
 {
-    body
-    {
-        margin: 0;
-        background-color: white;
-        color: black;
-    }
-
-    #page
-    {
-        width: auto;
-    }
-
-    #content
-    {
-        box-shadow: none;
-    }
-
     h1, h2, h3, h4
     {
         text-shadow: none;
+    }
+
+    header
+    {
+        position: static;
+        border: none;
     }
 
     nav
@@ -227,8 +228,13 @@ table.BorderedTable th, table.BorderedTable td
         display: none;
     }
 
-    footer
+    #content
     {
-        border: 0;
+        padding-top: 1em;
+    }
+
+    .photo > img
+    {
+        box-shadow: none;
     }
 }
