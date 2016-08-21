@@ -8,7 +8,7 @@ body
     background-color: white;
     color: black;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10pt;
+    font-size: 11pt;
     -webkit-text-size-adjust: none;
 }
 
@@ -27,7 +27,7 @@ h1, h2, h3, h4
 h1
 {
     margin: 0;
-    font-size: 190%;
+    font-size: 180%;
 }
 
 h2
@@ -97,6 +97,11 @@ h1, nav, #content
     margin: auto;
 }
 
+nav
+{
+    font-size: 90%;
+}
+
 nav a:link, nav a:active, nav a:visited
 {
     display: inline-block;
@@ -133,7 +138,7 @@ nav a:hover
 footer
 {
     padding: 1em;
-    font-size: 8pt;
+    font-size: 80%;
     text-align: center;
     color: #a0a0a0;
     background-color: transparent;
