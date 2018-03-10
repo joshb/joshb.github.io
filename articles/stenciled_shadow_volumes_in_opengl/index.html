@@ -7,7 +7,7 @@ last_updated_date: August 31, 2008
 
     <p>This article explains how to implement shadows in OpenGL, using the popular stenciled shadow volumes technique. Features sample C code and is accompanied by a demo written in C.</p>
 
-    <p>If you read my previous article, <a href="../dynamic_lightmaps_in_opengl">Dynamic Lightmaps in OpenGL</a>, you may have noticed that, while dynamic lightmaps can look nice, they don't take into account an effect closely related to lighting: shadowing. Though it would be possible to trace a ray from the light's position to the position of each pixel of a lightmap, to determine if something is between the light and pixel (thus shadowing the pixel), that would probably be too slow to do in real-time, so we need another technique to do the shadows.</p>
+    <p>If you read my previous article, <a href="../dynamic_lightmaps_in_opengl/">Dynamic Lightmaps in OpenGL</a>, you may have noticed that, while dynamic lightmaps can look nice, they don't take into account an effect closely related to lighting: shadowing. Though it would be possible to trace a ray from the light's position to the position of each pixel of a lightmap, to determine if something is between the light and pixel (thus shadowing the pixel), that would probably be too slow to do in real-time, so we need another technique to do the shadows.</p>
 
     <p>One popular technique is stenciled shadow volumes. As the name implies, the technique makes use of the stencil buffer. If you're not familiar with the stencil buffer, you may want to learn about that before reading this article.</p>
 
@@ -30,7 +30,7 @@ last_updated_date: August 31, 2008
     };
 {% endhighlight %}
 
-    <p>The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my <a href="../dynamic_lightmaps_in_opengl">Dynamic Lightmaps in OpenGL</a> article if you're interested in lightmaps.</p>
+    <p>The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my <a href="../dynamic_lightmaps_in_opengl/">Dynamic Lightmaps in OpenGL</a> article if you're interested in lightmaps.</p>
 
     <p>We also have a <strong>cube</strong> structure, which just makes it easy to store a cube model that's made up of six surfaces:</p>
 
