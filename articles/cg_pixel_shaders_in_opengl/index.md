@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tutorial - Cg Pixel Shaders in OpenGL
-date: July 2, 2004
+date: 2004-07-02
 ---
 
     <p>This article provides an introduction to writing pixel shaders with the Cg shader programming language and using them in OpenGL with the ARB_fragment_program extension. It contains sample C and Cg code and is accompanied by a simple diffuse lighting demo with full source code.</p>

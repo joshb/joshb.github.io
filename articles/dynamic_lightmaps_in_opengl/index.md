@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tutorial - Dynamic Lightmaps in OpenGL
-date: November 16, 2003
+date: 2003-11-16
 ---
 
     <p>This article explains how to implement dynamic lightmaps in OpenGL with multitexturing. Features sample C code and is accompanied by a demo written in C.</p>

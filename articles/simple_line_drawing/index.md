@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial - Introduction to Software-based Rendering: Simple Line Drawing"
-date: January 3, 2009
+date: 2009-01-03
 ---
 
     <p>This tutorial starts off a series of articles on software-based graphics rendering by introducing a simple line drawing algorithm. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.</p>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Tutorial - Getting Started with the OpenGL Shading Language (GLSL)
-date: December 30, 2010
+date: 2010-12-30
 ---
 
     <p>This article provides an introduction to the OpenGL Shading Language (GLSL). It contains sample C and GLSL code, and is accompanied by a diffuse/specular lighting demo with full source code. The code is available under an open source, BSD-style <a href="license.txt">license</a> and was designed to be as simple as possible, so that it can easily be used in other projects.</p>

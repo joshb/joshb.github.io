@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tutorial - Introduction to Software-based Rendering: Triangle Rasterization"
-date: January 19, 2009
+date: 2009-01-19
 ---
 
     <p>This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.</p>

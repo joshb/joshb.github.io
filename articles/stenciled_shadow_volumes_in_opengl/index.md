@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Tutorial - Stenciled Shadow Volumes in OpenGL
-date: January 18, 2004
-last_updated_date: August 31, 2008
+date: 2004-01-18
+last_updated_date: 2008-08-31
 ---
 
     <p>This article explains how to implement shadows in OpenGL, using the popular stenciled shadow volumes technique. Features sample C code and is accompanied by a demo written in C.</p>
