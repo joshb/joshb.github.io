@@ -271,7 +271,7 @@ We then calculate the specular lighting contribution from the current light, whi
 
 **halfAngle** contains the normalized direction vector that is halfway between the direction to the camera and the direction to the current light. The specular lighting contribution is calculated similarly to how the diffuse lighting was, but we will compare the fragment normal to **halfAngle** instead of to the direction vector to the light itself. To visualize how this works, look at the figure below:
 
-    <img src="figure1.png" alt="Figure 1" />
+<img src="figure1.png" alt="Figure 1" />
 
 The red sphere represents an object being lit by a single light, and the point where the red, green, and blue lines meet represents a single fragment. The red line represents the normalized direction vector to the light and the blue line represents the normalized direction vector to the camera. If these two vectors are added together, the result is the green line that reaches to the top right of the box with the gray outline; if this vector is then normalized, the result is the half-angle vector. In the figure, this half-angle vector is also exactly the same as the fragment normal, so full specular lighting would be applied to the fragment. This makes sense, as the light and camera direction vectors are at a 90 degree angle to eachother and the fragment normal appears to be at a 45 degree angle.
 
@@ -337,6 +337,6 @@ Finally, we just render some spheres to represent the lights, call **glutSwapBuf
 
 A screenshot of the demo program can be seen below:
 
-    <img src="glsl_lighting.png" alt="Demo Screenshot" />
+<img src="glsl_lighting.png" alt="Demo Screenshot" />
 
 The full C source code for the demo can be found [on GitHub](https://github.com/joshb/glsl_lighting). It requires GLUT in addition to an OpenGL implementation with GLSL support. The source code is provided under a BSD-style license, so feel free to use any portions of it in your own projects.

@@ -155,6 +155,6 @@ In the demo, the polygons are rendered with code like this (using the VEREX macr
 
 Here's a screenshot of the demo program:
 
-    <img src="cglighting.jpg" alt="cglighting.jpg" />
+<img src="cglighting.jpg" alt="cglighting.jpg" />
 
 The C source code for the demo (along with the Cg shader code) can be found [on GitHub](https://github.com/joshb/cglighting). The demo requires GLUT, in addition to an OpenGL implementation with ARB_fragment_program support.

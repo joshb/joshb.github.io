@@ -76,107 +76,107 @@ The first thing that this function does is make sure that the **x** and **y** va
 
 To help visualize this, refer to the table below, which represents a framebuffer that's 8 pixels wide by 8 pixels high:
 
-    <table class="BorderedTable" cellspacing="0" cellpadding="0" border="0" style="width: 320px; font-size: 8pt; text-align: center">
+<table class="BorderedTable" cellspacing="0" cellpadding="0" border="0" style="width: 320px; font-size: 8pt; text-align: center">
     <tr style="background-color: #555555; color: white">
         <td style="border: 0">&nbsp;</td>
         <td style="border: 0">0</td>
-            <td style="border: 0">1</td>
-            <td style="border: 0">2</td>
-            <td style="border: 0">3</td>
-            <td style="border: 0">4</td>
-            <td style="border: 0">5</td>
-            <td style="border: 0">6</td>
-            <td style="border: 0">7</td>
-        </tr>
+        <td style="border: 0">1</td>
+        <td style="border: 0">2</td>
+        <td style="border: 0">3</td>
+        <td style="border: 0">4</td>
+        <td style="border: 0">5</td>
+        <td style="border: 0">6</td>
+        <td style="border: 0">7</td>
+    </tr>
     <tr>
         <td style="border: 0; background-color: #555555; color: white">0</td>
-            <td>0</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            </tr>
-        <tr>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">1</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-            <td>15</td>
-            </tr>
-        <tr>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">2</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td style="font-weight: bold">19</td>
-            <td>20</td>
-            <td>21</td>
-            <td>22</td>
-            <td>23</td>
-            </tr>
-        <tr>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td style="font-weight: bold">19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">3</td>
-            <td>24</td>
-            <td>25</td>
-            <td>26</td>
-            <td>27</td>
-            <td>28</td>
-            <td>29</td>
-            <td>30</td>
-            <td>31</td>
-            </tr>
-        <tr>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">4</td>
-            <td>32</td>
-            <td>33</td>
-            <td>34</td>
-            <td>35</td>
-            <td>36</td>
-            <td>37</td>
-            <td>38</td>
-            <td>39</td>
-            </tr>
-        <tr>
+        <td>32</td>
+        <td>33</td>
+        <td>34</td>
+        <td>35</td>
+        <td>36</td>
+        <td>37</td>
+        <td>38</td>
+        <td>39</td>
+        </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">5</td>
-            <td>40</td>
-            <td>41</td>
-            <td>42</td>
-            <td>43</td>
-            <td>44</td>
-            <td>45</td>
-            <td>46</td>
-            <td>47</td>
-            </tr>
-        <tr>
+        <td>40</td>
+        <td>41</td>
+        <td>42</td>
+        <td>43</td>
+        <td>44</td>
+        <td>45</td>
+        <td>46</td>
+        <td>47</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">6</td>
-            <td>48</td>
-            <td>49</td>
-            <td>50</td>
-            <td>51</td>
-            <td>52</td>
-            <td>53</td>
-            <td>54</td>
-            <td>55</td>
-            </tr>
-        <tr>
+        <td>48</td>
+        <td>49</td>
+        <td>50</td>
+        <td>51</td>
+        <td>52</td>
+        <td>53</td>
+        <td>54</td>
+        <td>55</td>
+    </tr>
+    <tr>
         <td style="border: 0; background-color: #555555; color: white">7</td>
-            <td>56</td>
-            <td>57</td>
-            <td>58</td>
-            <td>59</td>
-            <td>60</td>
-            <td>61</td>
-            <td>62</td>
-            <td>63</td>
-            </tr>
-        </table>
+        <td>56</td>
+        <td>57</td>
+        <td>58</td>
+        <td>59</td>
+        <td>60</td>
+        <td>61</td>
+        <td>62</td>
+        <td>63</td>
+    </tr>
+</table>
 
 The column and row headings on the top and left sides of the table represent the possible x and y positions, respectively, within the framebuffer. The other cells represent pixels within the framebuffer, and the number inside each cell is the pixel's index within the framebuffer array. If you need to access the pixel where y equals 2 and x equals 3, the index is **2 * 8 + 3**, where 8 is the width of the framebuffer in this case. The result is 19, as indicated by the bold index in the appropriate table cell above.
 
@@ -273,6 +273,6 @@ That's the end of the function, and it's now ready for use. There are certainly 
 
 Here's a screenshot of the demo program:
 
-    <img src="linedrawing.png" alt="" />
+<img src="linedrawing.png" alt="" />
 
 The C++ source code for the demo can be found [on GitHub](https://github.com/joshb/linedrawing). The demo requires [SDL](http://www.libsdl.org/).

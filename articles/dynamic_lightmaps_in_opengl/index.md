@@ -197,6 +197,6 @@ Then the surfaces are rendered with this loop (the **surfaces** array contains p
 
 And we're done. Here's a screenshot of the demo:
 
-    <img src="dynamiclightmaps.jpg" alt="dynamiclightmaps.jpg" />
+<img src="dynamiclightmaps.jpg" alt="dynamiclightmaps.jpg" />
 
 You can find the complete source code for the demo [on GitHub](https://github.com/joshb/dynamiclightmaps); the source code is distributed under a BSD-style license, which allows you to modify it and/or use it for your own projects.

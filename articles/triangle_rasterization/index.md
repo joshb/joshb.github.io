@@ -12,27 +12,27 @@ In our [previous article](../simple_line_drawing/), we implemented a function fo
 
 There are basically three steps to triangle rasterization. First, let's break triangle drawing down into a few separate stages, as shown in the figures below (each figure represents a 20x20 grid of pixels):
 
-    <table cellspacing="0" cellpadding="4" border="0">
-    <tbody>
-        <tr style="font-size: 8pt; text-align: center">
-        <td>
-            <img src="trianglerast_f1.png" alt="Figure 1" style="border: solid 1px black" />
-            <br />
-            Figure 1
-        </td>
-        <td>
-            <img src="trianglerast_f2.png" alt="Figure 1" style="border: solid 1px black" />
-            <br />
-            Figure 2
-        </td>
-        <td>
-            <img src="trianglerast_f3.png" alt="Figure 1" style="border: solid 1px black" />
-            <br />
-            Figure 3
-        </td>
-        </tr>
-    </tbody>
-    </table>
+<table cellspacing="0" cellpadding="4" border="0">
+<tbody>
+    <tr style="font-size: 8pt; text-align: center">
+    <td>
+    <img src="trianglerast_f1.png" alt="Figure 1" style="border: solid 1px black" />
+        <br />
+        Figure 1
+    </td>
+    <td>
+    <img src="trianglerast_f2.png" alt="Figure 1" style="border: solid 1px black" />
+        <br />
+        Figure 2
+    </td>
+    <td>
+    <img src="trianglerast_f3.png" alt="Figure 1" style="border: solid 1px black" />
+        <br />
+        Figure 3
+    </td>
+    </tr>
+</tbody>
+</table>
 
 The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the <em>edges</em> of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
 
@@ -272,6 +272,6 @@ Finally, we loop through each x position in the span and set pixels using the y 
 
 The function is finished, and with that, our triangle rasterization algorithm is complete. Here's a screenshot of the demo program:
 
-    <img src="trianglerast.png" alt="Demo Screenshot" />
+<img src="trianglerast.png" alt="Demo Screenshot" />
 
 The C++ source code for the demo can be found [on GitHub](https://github.com/joshb/triangleraster). The demo requires [SDL](http://www.libsdl.org/).
