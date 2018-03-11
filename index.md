@@ -20,5 +20,4 @@ I can be contacted by email at [josh@joshbeam.com](mailto:josh@joshbeam.com).
 
 {{ post.content }}
 
-<br>
 {% endfor %}
