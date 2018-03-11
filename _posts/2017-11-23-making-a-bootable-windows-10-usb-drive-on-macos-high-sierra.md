@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Making a Bootable Windows 10 USB Drive on macOS High Sierra
+date: 2017-11-23
 ---
 I recently put together a new gaming PC for the first time in several years. This was my first time installing Windows 10, and it turned out to be a bit of a challenge, as I opted to purchase a downloadable copy through Microsoft's website and transfer it to a USB drive on my Mac running macOS High Sierra. Microsoft provides a tool for creating a bootable Windows 10 installation drive from an existing Windows system, but not for macOS, and there is some conflicting information online about how to go about doing that.
 

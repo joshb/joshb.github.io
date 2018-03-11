@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Using Swift for OpenGL development on OS X
+date: 2015-06-25
 ---
 I've been working with [Swift](https://developer.apple.com/swift/) lately and enjoying it quite a bit. Having done a lot of OpenGL development in my spare time in the past, I decided to try my hand at writing some OpenGL code in Swift.
 
