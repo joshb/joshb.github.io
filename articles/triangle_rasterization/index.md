@@ -81,7 +81,7 @@ Edge::Edge(const Color &color1, int x1, int y1,
 
 When we're looping through the y axis, we want to start with lower values and end with higher ones, so this constructor simply makes sure that the first point of the edge is the point with the lower y value of the two given.
 
-Let's now take a look at the <strong>DrawTriangle()</strong> function of the <strong>Rasterizer</strong> class, which creates an array of edges from the three points given:
+Let's now take a look at the **DrawTriangle()** function of the **Rasterizer** class, which creates an array of edges from the three points given:
 
 ```c++
 void
@@ -101,7 +101,7 @@ The first edge is from point one to point two, the second edge is from point two
 
 Let's refer back to the figures shown earlier in the article for a moment. Notice that one edge of the triangle (the vertical one on the left) spans the entire length of the triangle in the y axis, whereas the other two edges span roughly half of the length in the y axis. When we're drawing triangles, one edge will always have a length in the y axis greater than either of the other two edges (actually, it's possible that two edges have the same length in the y axis and the third has a 0 length, but our code will handle that situation as well); its length in the y axis will be the sum of the lengths of the other two edges.
 
-The following bit of code is used to find the index of the tallest edge (the one with the greatest length in the y axis) in the <strong>edges</strong> array:
+The following bit of code is used to find the index of the tallest edge (the one with the greatest length in the y axis) in the **edges** array:
 
 ```c++
 ​    int maxLength = 0;
@@ -124,7 +124,7 @@ Next, we get the indices of the shorter edges, using the modulo operator to make
     int shortEdge2 = (longEdge + 2) % 3;
 ```
 
-Next, we pass the edges to the <strong>DrawSpansBetweenEdges()</strong> function, which will calculate the horizontal spans between two edges of the triangle and send them to another function for drawing indivudal spans; we call this function twice, passing in the tall edge along with each of the short edges, and the <strong>DrawTriangle()</strong> function is done:
+Next, we pass the edges to the **DrawSpansBetweenEdges()** function, which will calculate the horizontal spans between two edges of the triangle and send them to another function for drawing indivudal spans; we call this function twice, passing in the tall edge along with each of the short edges, and the **DrawTriangle()** function is done:
 
 ```c++
 ​    // draw spans between edges; the long edge can be drawn
@@ -151,7 +151,7 @@ class Span
 };
 ```
 
-This is similar to the <strong>Edge</strong> class, but it has no y values because spans are always parallel to the x axis; the function for drawing a single span (shown later in the article) will take a single y value to draw at along with a span. The constructor of the <strong>Span</strong> class makes sure that the first point stored is the one with the lower x value:
+This is similar to the **Edge** class, but it has no y values because spans are always parallel to the x axis; the function for drawing a single span (shown later in the article) will take a single y value to draw at along with a span. The constructor of the **Span** class makes sure that the first point stored is the one with the lower x value:
 
 ```c++
 Span::Span(const Color &color1, int x1, const Color &color2, int x2)
@@ -170,7 +170,7 @@ Span::Span(const Color &color1, int x1, const Color &color2, int x2)
 }
 ```
 
-Span calculation is performed by the <strong>DrawSpansBetweenEdges()</strong> function. This function first takes the differences between the y positions of the points for the given edges. If either of them is 0, there are no spans to render and the function simply returns:
+Span calculation is performed by the **DrawSpansBetweenEdges()** function. This function first takes the differences between the y positions of the points for the given edges. If either of them is 0, there are no spans to render and the function simply returns:
 
 ```c++
 void
@@ -212,9 +212,9 @@ The last task before looping through each span is initializing factors for inter
     float factorStep2 = 1.0f / e2ydiff;
 ```
 
-When this function is called, the first edge given must be the long edge and the second edge given must be one of the short ones. We're going to loop from the minimum y value of the second edge to the maximum y value of the second edge to calculate spans, since every span within the boundaries of the short edge will also be within the boundaries of the long edge. <strong>factor2</strong> starts at 0 and is increased by <strong>factorStep2</strong> until it reaches a value of 1 towards the end of the loop. <strong>factor1</strong>, however, may start with a value greater than 0 (if the long edge's starting y value is lower than the short edge's) or may end up at a value lower than 1 (if the long edge's ending y value is greater than the short edge's).
+When this function is called, the first edge given must be the long edge and the second edge given must be one of the short ones. We're going to loop from the minimum y value of the second edge to the maximum y value of the second edge to calculate spans, since every span within the boundaries of the short edge will also be within the boundaries of the long edge. **factor2** starts at 0 and is increased by **factorStep2** until it reaches a value of 1 towards the end of the loop. **factor1**, however, may start with a value greater than 0 (if the long edge's starting y value is lower than the short edge's) or may end up at a value lower than 1 (if the long edge's ending y value is greater than the short edge's).
 
-Here's the loop that calculates spans and passes them to the <strong>DrawSpan()</strong> function to draw them:
+Here's the loop that calculates spans and passes them to the **DrawSpan()** function to draw them:
 
 ```c++
 ​    // loop through the lines between the edges and draw spans
@@ -233,13 +233,13 @@ Here's the loop that calculates spans and passes them to the <strong>DrawSpan()<
 }
 ```
 
-The x and color values for each span are interpolated from the first point of each edge to the second point, similarly to the line drawing function from our last tutorial. Once the loop finishes, the function is complete. Let's now take a look at the <strong>DrawSpan()</strong> function, which is where we draw each individual pixel of a span.
+The x and color values for each span are interpolated from the first point of each edge to the second point, similarly to the line drawing function from our last tutorial. Once the loop finishes, the function is complete. Let's now take a look at the **DrawSpan()** function, which is where we draw each individual pixel of a span.
 
 ## Span Drawing
 
 Span drawing is basically like drawing a one-dimensional line that exists only in the x axis. We loop from the minimum x value of the span to the maximum x value, interpolating the color and setting pixels along the way.
 
-Here's how the <strong>DrawSpan()</strong> function starts. We calculate the differences between the starting/ending x/color values of the span and, if the x difference is 0, simply return because there are no pixels to draw:
+Here's how the **DrawSpan()** function starts. We calculate the differences between the starting/ending x/color values of the span and, if the x difference is 0, simply return because there are no pixels to draw:
 
 ```c++
 void

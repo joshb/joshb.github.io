@@ -19,7 +19,7 @@ Basically, it's a "volume" (or a kind of model) which encloses every point which
 
 Determining and rendering the shadow volume is the most complex part of using stenciled shadow volumes; it's a good subject to cover by itself. Although we'll be using a pretty simple method for creating shadow volumes of simple geometry in this article, it wouldn't be very efficient to render the shadow volumes of hundreds or thousands of polygons this way. The method used in this article can also cause some artifacts where the edges of shadow volumes meet (because there's a single shadow volume rendered for each polygon), which could be solved by rendering a single volume that surrounds an entire model, instead of rendering separate volumes for each polygon of a model.
 
-In the demo accompanying this article, we have a <strong>surface</strong> structure which represents a quadrilateral surface:
+In the demo accompanying this article, we have a **surface** structure which represents a quadrilateral surface:
 
 ```c++
 ​    struct surface {
@@ -30,9 +30,9 @@ In the demo accompanying this article, we have a <strong>surface</strong> struct
     };
 ```
 
-The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my [Dynamic Lightmaps in OpenGL](../dynamic_lightmaps_in_opengl/) article if you're interested in lightmaps.
+The **vertices** array contains four 3D vectors representing each vertex of a quadrilateral surface. **matrix**, **s_dist** and **t_dist** are used for lightmap generation, so they're irrelevant to this article; see my [Dynamic Lightmaps in OpenGL](../dynamic_lightmaps_in_opengl/) article if you're interested in lightmaps.
 
-We also have a <strong>cube</strong> structure, which just makes it easy to store a cube model that's made up of six surfaces:
+We also have a **cube** structure, which just makes it easy to store a cube model that's made up of six surfaces:
 
 ```c++
 ​    struct cube {
@@ -41,9 +41,9 @@ We also have a <strong>cube</strong> structure, which just makes it easy to stor
     };
 ```
 
-The <strong>surfaces</strong> array contains pointers to each of the six surfaces required to make up a cube. <strong>position</strong> is a 3D vector representing the position of the cube.
+The **surfaces** array contains pointers to each of the six surfaces required to make up a cube. **position** is a 3D vector representing the position of the cube.
 
-Now let's look at the function that renders a surface's shadow volume. The <strong>render_surface_shadow_volume</strong> function will render a shadow volume for the <strong>surface</strong> that is passed to it:
+Now let's look at the function that renders a surface's shadow volume. The **render_surface_shadow_volume** function will render a shadow volume for the **surface** that is passed to it:
 
 ```c++
 ​    static void
@@ -54,7 +54,7 @@ Now let's look at the function that renders a surface's shadow volume. The <stro
         float v[4][3];
 ```
 
-The <strong>surf</strong> argument is a pointer to a surface, the <strong>surf_pos</strong> argument is a pointer to a 3D vector representing the surface's position, and <strong>light_pos</strong> is a pointer to a 3D vector representing the position of the light that's blocked by the surface (thus causing a shadow).
+The **surf** argument is a pointer to a surface, the **surf_pos** argument is a pointer to a 3D vector representing the surface's position, and **light_pos** is a pointer to a 3D vector representing the position of the light that's blocked by the surface (thus causing a shadow).
 
 ```c++
 ​        for(i = 0; i < 4; i++) {
@@ -75,7 +75,7 @@ The <strong>surf</strong> argument is a pointer to a surface, the <strong>surf_p
         }
 ```
 
-The above loop does two things: first, it adds the surface's position to each of the surface's vertices. This is just for convenience, and the position will be subtracted from the surface's vertices at the end of the function. Second, it stores in the <strong>v</strong> array the surface's vertices extruded towards infinity in the direction from the light to each vertex. Remember that a shadow volume is supposed to enclose every possible point that could be shadowed, so it must start from the surface and end at the furthest distance away that an occluded object could be. Of course, multiplying a vertex by <strong>M_INFINITY</strong> (which is defined as 50.0f in the demo) doesn't really extrude it to infinity, but it does extrude it beyond the furthest distance away that an occluded object could be in this demo. An improvement over this would be to use an "infinite projection matrix", but we'll use the method above in order to keep things simple.
+The above loop does two things: first, it adds the surface's position to each of the surface's vertices. This is just for convenience, and the position will be subtracted from the surface's vertices at the end of the function. Second, it stores in the **v** array the surface's vertices extruded towards infinity in the direction from the light to each vertex. Remember that a shadow volume is supposed to enclose every possible point that could be shadowed, so it must start from the surface and end at the furthest distance away that an occluded object could be. Of course, multiplying a vertex by **M_INFINITY** (which is defined as 50.0f in the demo) doesn't really extrude it to infinity, but it does extrude it beyond the furthest distance away that an occluded object could be in this demo. An improvement over this would be to use an "infinite projection matrix", but we'll use the method above in order to keep things simple.
 
 One thing to keep in mind is that the order in which we give the vertices to glVertex3fv when drawing polygons matters. In the demo, if the vertices are drawn in a counter-clockwise order from the viewer's position, then the polygon is facing the viewer (you'll see why this is important when we perform the stencil operations later on). Here's an image to show you what I mean:
 
@@ -133,7 +133,7 @@ Now that we have a function to render shadow volumes, let's put it to use. There
 
 Before doing any shadow volume rendering, we must make sure that we've already rendered every object that could be shadowed, with the depth buffer set accordingly, since the depth buffer will be used to determine what is shadowed.
 
-The <strong>render_cube_shadow</strong> will render a shadow volume for each surface of a cube, modifying the stencil buffer appropriately. Here's how the function and its loop start out:
+The **render_cube_shadow** will render a shadow volume for each surface of a cube, modifying the stencil buffer appropriately. Here's how the function and its loop start out:
 
 ```c++
 ​    static void
@@ -206,7 +206,7 @@ Now let's finish up the loop and the function:
     }
 ```
 
-In the above bit of code, we disable the polygon offset and front/back face culling, and re-enable writing to the color and depth buffers. Then we set the stencil operations to reset each pixel's stencil value for anything we draw, and we call <strong>draw_shadow</strong>, which just fills the screen with a dark quad - however, due to the stencil operations we performed when rendering the back and front faces of the surface's shadow volume, the dark quad will color in only the areas that have been shadowed by the surface.
+In the above bit of code, we disable the polygon offset and front/back face culling, and re-enable writing to the color and depth buffers. Then we set the stencil operations to reset each pixel's stencil value for anything we draw, and we call **draw_shadow**, which just fills the screen with a dark quad - however, due to the stencil operations we performed when rendering the back and front faces of the surface's shadow volume, the dark quad will color in only the areas that have been shadowed by the surface.
 
 Once we've called draw_shadow, we disable stencil testing, end the loop, and we're done. Here's a screenshot of the demo (the four cubes in the middle project shadows; the sphere doesn't, but is occluded by the cubes' shadows):
 
@@ -214,4 +214,4 @@ Once we've called draw_shadow, we disable stencil testing, end the loop, and we'
 
 The full source code for the demo can be found on [GitHub](https://github.com/joshb/shadowvolumes). It's distributed under a BSD-style license, so you can use it and/or modify it for your own projects.
 
-(Update on August 31, 2008: Thanks to Tong for pointing out that <strong>light_pos</strong> should be added to each vertex in the <strong>v</strong> array after the vertices are multiplied by <strong>M_INFINITY</strong> - this is because the vertices stored in <strong>v</strong> are supposed to be the extruded surface vertices projected from the light position. This change fixes some small rendering issues in the demo. The code in the article and the demo program has been updated to reflect this change.)
+(Update on August 31, 2008: Thanks to Tong for pointing out that **light_pos** should be added to each vertex in the **v** array after the vertices are multiplied by **M_INFINITY** - this is because the vertices stored in **v** are supposed to be the extruded surface vertices projected from the light position. This change fixes some small rendering issues in the demo. The code in the article and the demo program has been updated to reflect this change.)

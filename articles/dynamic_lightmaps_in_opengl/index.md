@@ -33,15 +33,15 @@ In the demo I've developed for this article, creating this matrix is easy enough
 
 The X axis of the matrix should point in the world space direction of the S texture coordinate (that is, from the top left corner to the top right corner). So we take the fourth vertex (the top right corner), subtract the first vertex (the top left corner), normalize the result, and we have the X axis. Getting the Y axis is similar: it should point in the world space direction of the T texture coordinate (top left to bottom left corners), so we take the second vertex (the bottom left corner), subtract the first vertex (the top left corner), and normalize the result. We now have the Y axis. The Z axis is the surface's normal, and is equal to the cross-product of the X axis and Y axis.
 
-We also need to know the world space distances between the surface's top left corner and top right corner (<b>s_dist</b> in the surface structure), and the surface's top left corner and bottom left corner (<b>t_dist</b> in the surface structure). This is so we know how far apart, horizontally and vertically, each pixel of the lightmap should be in world space, which we need to know in order to get a correct lighting value for each pixel. s_dist is equal to <i>sqrt(dot_product(v4 - v1, v4 - v1))</i>, where v4 is the fourth vertex and v1 is the first vertex. t_dist is equal to <i>sqrt(dot_product(v2 - v1, v2 - v1))</i>, where v2 is the second vertex and v1 is the first vertex.
+We also need to know the world space distances between the surface's top left corner and top right corner (**s_dist** in the surface structure), and the surface's top left corner and bottom left corner (**t_dist** in the surface structure). This is so we know how far apart, horizontally and vertically, each pixel of the lightmap should be in world space, which we need to know in order to get a correct lighting value for each pixel. s_dist is equal to *sqrt(dot_product(v4 - v1, v4 - v1))*, where v4 is the fourth vertex and v1 is the first vertex. t_dist is equal to *sqrt(dot_product(v2 - v1, v2 - v1))*, where v2 is the second vertex and v1 is the first vertex.
 
-All of the above is done in the <b>new_surface</b> function in the demo.
+All of the above is done in the **new_surface** function in the demo.
 
 ## Creating the Lightmaps
 
-The generation of lightmaps is done in a function called <b>generate_lightmap</b>. It takes a pointer to a surface as an argument, and returns a texture number that can be used in a glBindTexture call.
+The generation of lightmaps is done in a function called **generate_lightmap**. It takes a pointer to a surface as an argument, and returns a texture number that can be used in a glBindTexture call.
 
-Right above the function, we have two global arrays of three floats: <b>light_pos</b>, which contains the position of the light in the scene, and <b>light_color</b>, which contains the color of the light in the scene. They're initialized like so:
+Right above the function, we have two global arrays of three floats: **light_pos**, which contains the position of the light in the scene, and **light_color**, which contains the color of the light in the scene. They're initialized like so:
 
 ```c++
 ​    static float light_pos[3] = { 1.0f, 0.0f, 0.25f };
@@ -61,20 +61,20 @@ Now let's take a look at the generate_lightmap function:
         float step, s, t;
 ```
 
-The <b>data</b> array contains the RGB pixel data of the lightmap. Before going any further, we'll get a texture number from OpenGL for the lightmaps (we'll be using the same number for each lightmap, since they'll all be generated dynamically):
+The **data** array contains the RGB pixel data of the lightmap. Before going any further, we'll get a texture number from OpenGL for the lightmaps (we'll be using the same number for each lightmap, since they'll all be generated dynamically):
 
 ```c++
 ​        if(lightmap_tex_num == 0)
             glGenTextures(1, &lightmap_tex_num);
 ```
 
-Now to create a lightmap with the information we have. First, we'll have a float variable named <b>step</b>, which is what s_dist and t_dist can be multiplied by to get the distance between two pixels of the lightmap. A constant called <b>LIGHTMAP_SIZE</b> (defined as 16 in the demo) will be used as the width and height of the lightmap, so step is initialized as follows:
+Now to create a lightmap with the information we have. First, we'll have a float variable named **step**, which is what s_dist and t_dist can be multiplied by to get the distance between two pixels of the lightmap. A constant called **LIGHTMAP_SIZE** (defined as 16 in the demo) will be used as the width and height of the lightmap, so step is initialized as follows:
 
 ```c++
 ​        step = 1.0f / LIGHTMAP_SIZE;
 ```
 
-Our current texture space position will be stored in two floats named <b>s</b> and <b>t</b>; they both start at 0.0 (the top left corner of the lightmap) and end at 1.0 (the bottom right corner of the lightmap). Now let's start looping through each pixel of the lightmap...
+Our current texture space position will be stored in two floats named **s** and **t**; they both start at 0.0 (the top left corner of the lightmap) and end at 1.0 (the bottom right corner of the lightmap). Now let's start looping through each pixel of the lightmap...
 
 ```c++
 ​        s = t = 0.0f;
@@ -84,7 +84,7 @@ Our current texture space position will be stored in two floats named <b>s</b> a
                 float tmp;
 ```
 
-<b>i</b> is the current vertical (Y) position on the lightmap and <b>j</b> is the current horizontal (X) position on the lightmap. <b>d</b> will contain half the squared world space distance between the light and the current pixel of the lightmap, and <b>tmp</b> will contain the lighting intensity (from 0.0 to 1.0) of the current pixel. The first thing we do in the loop is get the world space position of the current pixel. To do this, we first store the texture space position of the current pixel in a 3D vector named <b>pos</b>:
+**i** is the current vertical (Y) position on the lightmap and **j** is the current horizontal (X) position on the lightmap. **d** will contain half the squared world space distance between the light and the current pixel of the lightmap, and **tmp** will contain the lighting intensity (from 0.0 to 1.0) of the current pixel. The first thing we do in the loop is get the world space position of the current pixel. To do this, we first store the texture space position of the current pixel in a 3D vector named **pos**:
 
 ```c++
 ​                pos[0] = surf->s_dist * s;
@@ -158,7 +158,7 @@ Now we create an OpenGL texture out of the lightmap, and then we're done with li
 
 ## Multitexturing and Rendering
 
-Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the <b>scene_render</b> function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The <b>lighting</b> variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).
+Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the **scene_render** function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The **lighting** variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).
 
 ```c++
 ​    glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -169,7 +169,7 @@ Now that we have the function for creating lightmaps, we can render the lightmap
         glEnable(GL_TEXTURE_2D);
 ```
 
-Then the surfaces are rendered with this loop (the <b>surfaces</b> array contains pointers to six surfaces):
+Then the surfaces are rendered with this loop (the **surfaces** array contains pointers to six surfaces):
 
 ```c++
 ​    for(i = 0; i < 6; i++) {

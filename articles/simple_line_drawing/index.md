@@ -12,7 +12,7 @@ First, a quick overview of this basic process of 3D graphics rendering is in ord
 
 Although real-time 3D graphics rendering is a vast and complex subject area with many different concepts and techniques, most of it basically consists of simple geometric shapes, primarily triangles, that are drawn in such a way that they appear to form a much more complex image.  Many complex texturing and lighting techniques are used to dress them up, but they're still essentially just triangles. This can be easily seen from looking at wireframe models, for example.
 
-The process of drawing the triangles is called <strong>rasterization</strong>. This consists of taking a geometric (or <em>vector</em>) shape and drawing it pixel-by-pixel on a pixel-based (or <em>raster</em>) image. There are various other processes for rendering images, including ray-tracing, but rasterization is currently the most common for real-time applications, such as games.
+The process of drawing the triangles is called **rasterization**. This consists of taking a geometric (or <em>vector</em>) shape and drawing it pixel-by-pixel on a pixel-based (or <em>raster</em>) image. There are various other processes for rendering images, including ray-tracing, but rasterization is currently the most common for real-time applications, such as games.
 
 A triangle, for instance, consists of three points. But a raster image, such as what your monitor displays, consists of pixels. The rasterization process, then, is to figure out which pixels of the image are within the triangle's area and to change the color of those pixels appropriately to form a triangle in the image.
 
@@ -44,9 +44,9 @@ class Color
 
 This class will be used for storing a color in floating-point format, with each color component (red, green, blue, and alpha for transparency) being a value from 0 to 1. We've overloaded some arithmetic operators so that we can manipulate colors easily; the addition/subtraction operators add/subtract each component of one color object to/from the corresponding component of another color, while the multiplication operator multiplies each component of a color by a scalar value.
 
-When a pixel is ready to be drawn, the <strong>ToUInt32()</strong> function is used to convert the color to an unsigned 32-bit integer, where each color component (alpha, red, green, and then blue) occupies 8 bits and has a value from 0 to 255. This integer can then be written to a framebuffer that SDL gives us access to for rendering.
+When a pixel is ready to be drawn, the **ToUInt32()** function is used to convert the color to an unsigned 32-bit integer, where each color component (alpha, red, green, and then blue) occupies 8 bits and has a value from 0 to 255. This integer can then be written to a framebuffer that SDL gives us access to for rendering.
 
-All rasterization will be done in a class aptly named <strong>Rasterizer</strong>. This class contains a few member variables that must be set using the <strong>SetFrameBuffer()</strong> function:
+All rasterization will be done in a class aptly named **Rasterizer**. This class contains a few member variables that must be set using the **SetFrameBuffer()** function:
 
 ```c++
 void
@@ -59,7 +59,7 @@ Rasterizer::SetFrameBuffer(uint32_t *frameBuffer,
 }
 ```
 
-<strong>m_FrameBuffer</strong> is a pointer to the framebuffer that pixels will be written to. <strong>m_Width</strong> contains the width of the framebuiffer and <strong>m_Height</strong> contains the height. To set the color of a pixel in the framebuffer, then, we have the <strong>SetPixel()</strong> function (there's also an overloaded version that takes floating point x/y coordinates and simply casts them to unsigned integers that are passed to the function below):
+**m_FrameBuffer** is a pointer to the framebuffer that pixels will be written to. **m_Width** contains the width of the framebuiffer and **m_Height** contains the height. To set the color of a pixel in the framebuffer, then, we have the **SetPixel()** function (there's also an overloaded version that takes floating point x/y coordinates and simply casts them to unsigned integers that are passed to the function below):
 
 ```c++
 void
@@ -72,7 +72,7 @@ Rasterizer::SetPixel(unsigned int x, unsigned int y, const Color &color)
 }
 ```
 
-The first thing that this function does is make sure that the <strong>x</strong> and <strong>y</strong> values make sense. If either one is outside the boundaries of the framebuffer, the function simply returns. <strong>m_FrameBuffer</strong> is basically an array of <strong>m_Width</strong> x <strong>m_Height</strong> pixels, with each pixel being stored left-to-right and then top-to-bottom. The array index to the pixel that needs to be set then is simply <strong>y</strong> multiplied by the width of the framebuffer, plus <strong>x</strong>. The color given is converted to an integer that's stored in the framebuffer.
+The first thing that this function does is make sure that the **x** and **y** values make sense. If either one is outside the boundaries of the framebuffer, the function simply returns. **m_FrameBuffer** is basically an array of **m_Width** x **m_Height** pixels, with each pixel being stored left-to-right and then top-to-bottom. The array index to the pixel that needs to be set then is simply **y** multiplied by the width of the framebuffer, plus **x**. The color given is converted to an integer that's stored in the framebuffer.
 
 To help visualize this, refer to the table below, which represents a framebuffer that's 8 pixels wide by 8 pixels high:
 
@@ -178,11 +178,11 @@ To help visualize this, refer to the table below, which represents a framebuffer
             </tr>
         </table>
 
-The column and row headings on the top and left sides of the table represent the possible x and y positions, respectively, within the framebuffer. The other cells represent pixels within the framebuffer, and the number inside each cell is the pixel's index within the framebuffer array. If you need to access the pixel where y equals 2 and x equals 3, the index is <strong>2 * 8 + 3</strong>, where 8 is the width of the framebuffer in this case. The result is 19, as indicated by the bold index in the appropriate table cell above.
+The column and row headings on the top and left sides of the table represent the possible x and y positions, respectively, within the framebuffer. The other cells represent pixels within the framebuffer, and the number inside each cell is the pixel's index within the framebuffer array. If you need to access the pixel where y equals 2 and x equals 3, the index is **2 * 8 + 3**, where 8 is the width of the framebuffer in this case. The result is 19, as indicated by the bold index in the appropriate table cell above.
 
 ## Drawing Lines
 
-Now that we're all set to draw individual pixels, let's use that ability to draw something slightly more complex - in this case, two dimensional lines. This will be done in the <strong>DrawLine()</strong> function of the <strong>Rasterizer</strong> class, which starts off as follows:
+Now that we're all set to draw individual pixels, let's use that ability to draw something slightly more complex - in this case, two dimensional lines. This will be done in the **DrawLine()** function of the **Rasterizer** class, which starts off as follows:
 
 ```c++
 void
@@ -200,7 +200,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
 
 This function accepts six parameters - the color, x position, and y position of the first point of the line followed by the color, x position, and y position of the second point. The first thing that it does is calculate the differences of the given x coordinates and y coordinates. If both of the differences are 0 (that is, x1 is equal to x2 and y1 is equal to y2), the line consists of one point, so we just draw a single pixel and return.
 
-Next, we have the following <em>if</em> statement, which checks if the absolute value of <strong>xdiff</strong> is greater than the absolute value of <strong>ydiff</strong>:
+Next, we have the following <em>if</em> statement, which checks if the absolute value of **xdiff** is greater than the absolute value of **ydiff**:
 
 ```c++
 ​    if(fabs(xdiff) > fabs(ydiff)) {
@@ -238,9 +238,9 @@ Next, we calculate the slope (or tangent) of the line and loop through each whol
 
 Calculating the y position is a case of some fairly simple geometry; the current x position relative to the x position of the line's first point is multiplied by the slope and added to the y position of the line's first point.
 
-The trickiest part of this is calculating the color. We want the color of the starting point of the line to be <strong>color1</strong>, the color of the ending point to be <strong>color2</strong>, and everything else to be somewhere in between. The current x position relative to the x position of the line's first point is divided by <strong>xdiff</strong> to give us a value between 0 and 1, where the value will be 0 at the start of the line and 1 at the end. With the help of the overloaded arithmetic operators of the <strong>Color</strong> class, we then use that value to linearly interpolate between the starting color and the ending color.
+The trickiest part of this is calculating the color. We want the color of the starting point of the line to be **color1**, the color of the ending point to be **color2**, and everything else to be somewhere in between. The current x position relative to the x position of the line's first point is divided by **xdiff** to give us a value between 0 and 1, where the value will be 0 at the start of the line and 1 at the end. With the help of the overloaded arithmetic operators of the **Color** class, we then use that value to linearly interpolate between the starting color and the ending color.
 
-The <strong>SetPixel()</strong> function is then called to draw the pixels and we're done - at least when it comes to rendering in terms of the x dimension. The other case, rendering in terms of the y dimension, is very similar:
+The **SetPixel()** function is then called to draw the pixels and we're done - at least when it comes to rendering in terms of the x dimension. The other case, rendering in terms of the y dimension, is very similar:
 
 ```c++
 ​    } else {
