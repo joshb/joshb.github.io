@@ -12,7 +12,7 @@ First, a quick overview of this basic process of 3D graphics rendering is in ord
 
 Although real-time 3D graphics rendering is a vast and complex subject area with many different concepts and techniques, most of it basically consists of simple geometric shapes, primarily triangles, that are drawn in such a way that they appear to form a much more complex image.  Many complex texturing and lighting techniques are used to dress them up, but they're still essentially just triangles. This can be easily seen from looking at wireframe models, for example.
 
-The process of drawing the triangles is called **rasterization**. This consists of taking a geometric (or <em>vector</em>) shape and drawing it pixel-by-pixel on a pixel-based (or <em>raster</em>) image. There are various other processes for rendering images, including ray-tracing, but rasterization is currently the most common for real-time applications, such as games.
+The process of drawing the triangles is called **rasterization**. This consists of taking a geometric (or *vector*) shape and drawing it pixel-by-pixel on a pixel-based (or *raster*) image. There are various other processes for rendering images, including ray-tracing, but rasterization is currently the most common for real-time applications, such as games.
 
 A triangle, for instance, consists of three points. But a raster image, such as what your monitor displays, consists of pixels. The rasterization process, then, is to figure out which pixels of the image are within the triangle's area and to change the color of those pixels appropriately to form a triangle in the image.
 
@@ -200,13 +200,13 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
 
 This function accepts six parameters - the color, x position, and y position of the first point of the line followed by the color, x position, and y position of the second point. The first thing that it does is calculate the differences of the given x coordinates and y coordinates. If both of the differences are 0 (that is, x1 is equal to x2 and y1 is equal to y2), the line consists of one point, so we just draw a single pixel and return.
 
-Next, we have the following <em>if</em> statement, which checks if the absolute value of **xdiff** is greater than the absolute value of **ydiff**:
+Next, we have the following *if* statement, which checks if the absolute value of **xdiff** is greater than the absolute value of **ydiff**:
 
 ```c++
 ​    if(fabs(xdiff) > fabs(ydiff)) {
 ```
 
-The basic method of line rendering is to loop through each whole number between the points in one dimension (x or y) and calculate the corresponding position in the other dimension using the line's slope. If there are more points in the x dimension (that is, the <em>if</em> condition above passes), we will loop through the points in the x dimension and calculate the corresponding y values; otherwise, we'll loop through the points in the y dimension and calculate the corresponding x values. Handling these two cases separately is necessary to prevent gaps in the line.
+The basic method of line rendering is to loop through each whole number between the points in one dimension (x or y) and calculate the corresponding position in the other dimension using the line's slope. If there are more points in the x dimension (that is, the *if* condition above passes), we will loop through the points in the x dimension and calculate the corresponding y values; otherwise, we'll loop through the points in the y dimension and calculate the corresponding x values. Handling these two cases separately is necessary to prevent gaps in the line.
 
 To draw the line in terms of the x dimension, we must first figure out the minimum and maximum x values that were passed to the function, since x2 may be lower than x1 and vice versa:
 

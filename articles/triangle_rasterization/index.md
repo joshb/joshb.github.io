@@ -34,9 +34,9 @@ There are basically three steps to triangle rasterization. First, let's break tr
 </tbody>
 </table>
 
-The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the <em>edges</em> of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
+The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the *edges* of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
 
-So the first step is to use the three points to determine the edges of the triangle. Next, we loop through the y axis boundaries of the triangle to calculate the horizontal <em>spans</em> that the triangle consists of; these are the horizontal lines that will form the triangle. Any row of pixels within the outline of the triangle is a span. Finally, we loop through the x axis boundaries of each span to draw each individual pixel.
+So the first step is to use the three points to determine the edges of the triangle. Next, we loop through the y axis boundaries of the triangle to calculate the horizontal *spans* that the triangle consists of; these are the horizontal lines that will form the triangle. Any row of pixels within the outline of the triangle is a span. Finally, we loop through the x axis boundaries of each span to draw each individual pixel.
 
 Let's now dive into the code for doing all of this, starting with the first step: edge calculation.
 
