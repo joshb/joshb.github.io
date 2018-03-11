@@ -3,38 +3,34 @@ layout: post
 title: Drome Engine
 ---
 
-<p>Drome Engine is a 3D game engine that's written in C++ and uses OpenGL for graphics rendering. It is open source software available under a BSD-style license.</p>
+Drome Engine is a 3D game engine that's written in C++ and uses OpenGL for graphics rendering. It is open source software available under a BSD-style license.
 
-<h2>Features</h2>
+## Features
 
-<p>Some of Drome Engine's features include:</p>
+Some of Drome Engine's features include:
 
-<ul>
-    <li>GLSL shader support</li>
-    <li>Particle effects</li>
-    <li>PNG and PCX image loading</li>
-    <li>TrueType font loading and rendering</li>
-    <li>Simple physics</li>
-    <li>Resource management with reference counting that causes unused resources (such as textures) to be removed from memory automatically</li>
-</ul>
+- GLSL shader support
+- Particle effects
+- PNG and PCX image loading
+- TrueType font loading and rendering
+- Simple physics
+- Resource management with reference counting that causes unused resources (such as textures) to be removed from memory automatically
 
-<h2>Platforms</h2>
+## Platforms
 
-<p>Drome Engine has been developed and tested on the following operating systems:</p>
+Drome Engine has been developed and tested on the following operating systems:
 
-<ul>
-    <li>Mac OS X</li>
-    <li>iOS</li>
-    <li>Arch Linux</li>
-</ul>
+- Mac OS X
+- iOS
+- Arch Linux
     
-<h2>Download</h2>
+## Download
 
-<p>The latest version of Drome Engine can be found <a href="https://github.com/joshb/DromeEngine">on GitHub</a>.</p>
+The latest version of Drome Engine can be found [on GitHub](https://github.com/joshb/DromeEngine).
 
-<h2>Screenshots</h2>
+## Screenshots
 
-<p>Click any image below to view a larger version.</p>
+Click any image below to view a larger version.
 
 <table border="0" cellpadding="0" cellspacing="16" style="font-size: smaller; text-align: center">
     <colgroup>
@@ -54,7 +50,7 @@ title: Drome Engine
     </tr>
 </table>
 
-<h2>Screenshots from old versions</h2>
+## Screenshots from old versions
 
 <table border="0" cellpadding="0" cellspacing="16" style="font-size: smaller; text-align: center">
     <colgroup>
