@@ -16,17 +16,17 @@ There are basically three steps to triangle rasterization. First, let's break tr
 <tbody>
     <tr style="font-size: 8pt; text-align: center">
     <td>
-    <img src="trianglerast_f1.png" alt="Figure 1" style="border: solid 1px black" />
+        <img src="trianglerast_f1.png" alt="Figure 1" style="border: solid 1px black" />
         <br />
         Figure 1
     </td>
     <td>
-    <img src="trianglerast_f2.png" alt="Figure 1" style="border: solid 1px black" />
+        <img src="trianglerast_f2.png" alt="Figure 1" style="border: solid 1px black" />
         <br />
         Figure 2
     </td>
     <td>
-    <img src="trianglerast_f3.png" alt="Figure 1" style="border: solid 1px black" />
+        <img src="trianglerast_f3.png" alt="Figure 1" style="border: solid 1px black" />
         <br />
         Figure 3
     </td>
