@@ -7,7 +7,7 @@ last_updated_date: 2008-08-31
 
 This article explains how to implement shadows in OpenGL, using the popular stenciled shadow volumes technique. Features sample C code and is accompanied by a demo written in C.
 
-If you read my previous article, <a href="../dynamic_lightmaps_in_opengl/">Dynamic Lightmaps in OpenGL</a>, you may have noticed that, while dynamic lightmaps can look nice, they don't take into account an effect closely related to lighting: shadowing. Though it would be possible to trace a ray from the light's position to the position of each pixel of a lightmap, to determine if something is between the light and pixel (thus shadowing the pixel), that would probably be too slow to do in real-time, so we need another technique to do the shadows.
+If you read my previous article, [Dynamic Lightmaps in OpenGL](../dynamic_lightmaps_in_opengl/), you may have noticed that, while dynamic lightmaps can look nice, they don't take into account an effect closely related to lighting: shadowing. Though it would be possible to trace a ray from the light's position to the position of each pixel of a lightmap, to determine if something is between the light and pixel (thus shadowing the pixel), that would probably be too slow to do in real-time, so we need another technique to do the shadows.
 
 One popular technique is stenciled shadow volumes. As the name implies, the technique makes use of the stencil buffer. If you're not familiar with the stencil buffer, you may want to learn about that before reading this article.
 
@@ -30,7 +30,7 @@ In the demo accompanying this article, we have a <strong>surface</strong> struct
     };
 ```
 
-The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my <a href="../dynamic_lightmaps_in_opengl/">Dynamic Lightmaps in OpenGL</a> article if you're interested in lightmaps.
+The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my [Dynamic Lightmaps in OpenGL](../dynamic_lightmaps_in_opengl/) article if you're interested in lightmaps.
 
 We also have a <strong>cube</strong> structure, which just makes it easy to store a cube model that's made up of six surfaces:
 
@@ -212,6 +212,6 @@ Once we've called draw_shadow, we disable stencil testing, end the loop, and we'
 
 <img src="shadowvolumes.jpg" alt="shadowvolumes.jpg" />
 
-The full source code for the demo can be found <a href="https://github.com/joshb/shadowvolumes">on GitHub</a>. It's distributed under a BSD-style license, so you can use it and/or modify it for your own projects.
+The full source code for the demo can be found on [GitHub](https://github.com/joshb/shadowvolumes). It's distributed under a BSD-style license, so you can use it and/or modify it for your own projects.
 
 (Update on August 31, 2008: Thanks to Tong for pointing out that <strong>light_pos</strong> should be added to each vertex in the <strong>v</strong> array after the vertices are multiplied by <strong>M_INFINITY</strong> - this is because the vertices stored in <strong>v</strong> are supposed to be the extruded surface vertices projected from the light position. This change fixes some small rendering issues in the demo. The code in the article and the demo program has been updated to reflect this change.)

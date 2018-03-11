@@ -275,4 +275,4 @@ Here's a screenshot of the demo program:
 
     <img src="linedrawing.png" alt="" />
 
-The C++ source code for the demo can be found <a href="https://github.com/joshb/linedrawing">on GitHub</a>. The demo requires <a href="http://www.libsdl.org/">SDL</a>.
+The C++ source code for the demo can be found [on GitHub](https://github.com/joshb/linedrawing). The demo requires [SDL](http://www.libsdl.org/).

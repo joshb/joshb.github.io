@@ -10,7 +10,7 @@ This article provides an introduction to writing pixel shaders with the Cg shade
 
 Simply put, shaders are small programs that are executed on a per-vertex or per-pixel basis. Vertex Shaders (also sometimes called Vertex Programs) are executed on each vertex that's processed by the graphics API. Pixel Shaders (also sometimes called Fragment Shaders or Fragment Programs) are executed on each pixel that's rendered.
 
-The powerful flexibility enabled by shaders is probably the biggest advance in real-time graphics programming in the past several years. Most modern GPUs, particularly ones made by NVIDIA and ATI, support vertex and pixel shaders. <a href="http://www.mesa3d.org/">Mesa</a>, a software-based OpenGL-compatible graphics library, also supports shaders; you may want to check that out if you have an older graphics card that doesn't have shader support, but it will obviously run very slow compared to a hardware implementation.
+The powerful flexibility enabled by shaders is probably the biggest advance in real-time graphics programming in the past several years. Most modern GPUs, particularly ones made by NVIDIA and ATI, support vertex and pixel shaders. [Mesa](http://www.mesa3d.org/), a software-based OpenGL-compatible graphics library, also supports shaders; you may want to check that out if you have an older graphics card that doesn't have shader support, but it will obviously run very slow compared to a hardware implementation.
 
 ## Cg
 
@@ -18,7 +18,7 @@ Cg ("C for graphics") is a high-level shader programming language developed by N
 
 There are many different low-level (assembly-like) shader languages that different APIs (such as OpenGL and Direct3D), and even different GPUs, may support. Cg allows you you to write one shader and use it with practically any API and GPU; the Cg compiler from NVIDIA can generate output in many of the low-level shader languages, including OpenGL's ARB_fragment_program language that's used for this article. It's important to note, however, that not all low-level languages have the same feature sets, and some Cg programs that can be compiled into newer low-level languages may not compile into older low-level languages.
 
-If you haven't yet, you may want to download the <a href="http://developer.nvidia.com/object/cg_toolkit.html">NVIDIA Cg Toolkit</a>, which contains the NVIDIA Cg Compiler and some good documentation.
+If you haven't yet, you may want to download the [NVIDIA Cg Toolkit](http://developer.nvidia.com/object/cg_toolkit.html), which contains the NVIDIA Cg Compiler and some good documentation.
 
 ## Loading Pixel Shaders in OpenGL
 
@@ -157,4 +157,4 @@ Here's a screenshot of the demo program:
 
     <img src="cglighting.jpg" alt="cglighting.jpg" />
 
-The C source code for the demo (along with the Cg shader code) can be found <a href="https://github.com/joshb/cglighting">on GitHub</a>. The demo requires GLUT, in addition to an OpenGL implementation with ARB_fragment_program support.
+The C source code for the demo (along with the Cg shader code) can be found [on GitHub](https://github.com/joshb/cglighting). The demo requires GLUT, in addition to an OpenGL implementation with ARB_fragment_program support.
