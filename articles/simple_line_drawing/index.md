@@ -26,7 +26,7 @@ date: 2009-01-03
 
     <p>Here's the class definition (check out the Color.cpp file in the demo accompanying this article for the full implementation):</p>
 
-{% highlight c++ %}
+```c++
 class Color
 {
     public:
@@ -40,7 +40,7 @@ class Color
         Color operator - (const Color &c) const;
         Color operator * (float f) const;
 };
-{% endhighlight %}
+```
 
     <p>This class will be used for storing a color in floating-point format, with each color component (red, green, blue, and alpha for transparency) being a value from 0 to 1. We've overloaded some arithmetic operators so that we can manipulate colors easily; the addition/subtraction operators add/subtract each component of one color object to/from the corresponding component of another color, while the multiplication operator multiplies each component of a color by a scalar value.</p>
 
@@ -48,7 +48,7 @@ class Color
 
     <p>All rasterization will be done in a class aptly named <strong>Rasterizer</strong>. This class contains a few member variables that must be set using the <strong>SetFrameBuffer()</strong> function:</p>
 
-{% highlight c++ %}
+```c++
 void
 Rasterizer::SetFrameBuffer(uint32_t *frameBuffer,
                            unsigned int width, unsigned int height)
@@ -57,11 +57,11 @@ Rasterizer::SetFrameBuffer(uint32_t *frameBuffer,
     m_Width = width;
     m_Height = height;
 }
-{% endhighlight %}
+```
 
     <p><strong>m_FrameBuffer</strong> is a pointer to the framebuffer that pixels will be written to. <strong>m_Width</strong> contains the width of the framebuiffer and <strong>m_Height</strong> contains the height. To set the color of a pixel in the framebuffer, then, we have the <strong>SetPixel()</strong> function (there's also an overloaded version that takes floating point x/y coordinates and simply casts them to unsigned integers that are passed to the function below):</p>
 
-{% highlight c++ %}
+```c++
 void
 Rasterizer::SetPixel(unsigned int x, unsigned int y, const Color &color)
 {
@@ -70,7 +70,7 @@ Rasterizer::SetPixel(unsigned int x, unsigned int y, const Color &color)
 
     m_FrameBuffer[y * m_Width + x] = color.ToUInt32();
 }
-{% endhighlight %}
+```
 
     <p>The first thing that this function does is make sure that the <strong>x</strong> and <strong>y</strong> values make sense. If either one is outside the boundaries of the framebuffer, the function simply returns. <strong>m_FrameBuffer</strong> is basically an array of <strong>m_Width</strong> x <strong>m_Height</strong> pixels, with each pixel being stored left-to-right and then top-to-bottom. The array index to the pixel that needs to be set then is simply <strong>y</strong> multiplied by the width of the framebuffer, plus <strong>x</strong>. The color given is converted to an integer that's stored in the framebuffer.</p>
 
@@ -184,7 +184,7 @@ Rasterizer::SetPixel(unsigned int x, unsigned int y, const Color &color)
 
     <p>Now that we're all set to draw individual pixels, let's use that ability to draw something slightly more complex - in this case, two dimensional lines. This will be done in the <strong>DrawLine()</strong> function of the <strong>Rasterizer</strong> class, which starts off as follows:</p>
 
-{% highlight c++ %}
+```c++
 void
 Rasterizer::DrawLine(const Color &color1, float x1, float y1,
                      const Color &color2, float x2, float y2)
@@ -196,21 +196,21 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
         SetPixel(x1, y1, color1);
         return;
     }
-{% endhighlight %}
+```
 
     <p>This function accepts six parameters - the color, x position, and y position of the first point of the line followed by the color, x position, and y position of the second point. The first thing that it does is calculate the differences of the given x coordinates and y coordinates. If both of the differences are 0 (that is, x1 is equal to x2 and y1 is equal to y2), the line consists of one point, so we just draw a single pixel and return.</p>
 
     <p>Next, we have the following <em>if</em> statement, which checks if the absolute value of <strong>xdiff</strong> is greater than the absolute value of <strong>ydiff</strong>:</p>
 
-{% highlight c++ %}
+```c++
 ​    if(fabs(xdiff) > fabs(ydiff)) {
-{% endhighlight %}
+```
 
     <p>The basic method of line rendering is to loop through each whole number between the points in one dimension (x or y) and calculate the corresponding position in the other dimension using the line's slope. If there are more points in the x dimension (that is, the <em>if</em> condition above passes), we will loop through the points in the x dimension and calculate the corresponding y values; otherwise, we'll loop through the points in the y dimension and calculate the corresponding x values. Handling these two cases separately is necessary to prevent gaps in the line.</p>
 
     <p>To draw the line in terms of the x dimension, we must first figure out the minimum and maximum x values that were passed to the function, since x2 may be lower than x1 and vice versa:</p>
 
-{% highlight c++ %}
+```c++
 ​        float xmin, xmax;
 
         // set xmin to the lower x value given
@@ -222,11 +222,11 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
             xmin = x2;
             xmax = x1;
         }
-{% endhighlight %}
+```
 
     <p>Next, we calculate the slope (or tangent) of the line and loop through each whole number between the minimum/maximum x values to draw it:</p>
 
-{% highlight c++ %}
+```c++
 ​        // draw line in terms of y slope
         float slope = ydiff / xdiff;
         for(float x = xmin; x <= xmax; x += 1.0f) {
@@ -234,7 +234,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
             Color color = color1 + ((color2 - color1) * ((x - x1) / xdiff));
             SetPixel(x, y, color);
         }
-{% endhighlight %}
+```
 
     <p>Calculating the y position is a case of some fairly simple geometry; the current x position relative to the x position of the line's first point is multiplied by the slope and added to the y position of the line's first point.</p>
 
@@ -242,7 +242,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
 
     <p>The <strong>SetPixel()</strong> function is then called to draw the pixels and we're done - at least when it comes to rendering in terms of the x dimension. The other case, rendering in terms of the y dimension, is very similar:</p>
 
-{% highlight c++ %}
+```c++
 ​    } else {
         float ymin, ymax;
 
@@ -265,7 +265,7 @@ Rasterizer::DrawLine(const Color &color1, float x1, float y1,
         }
     }
 }
-{% endhighlight %}
+```
 
     <p>The only differences here are that we loop through the minimum/maximum y values and calculate the x values instead of the other way around. Also note that we use the reciprocal of the previous slope (or the cotangent) to calculate x values.</p>
 

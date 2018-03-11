@@ -18,14 +18,14 @@ date: 2003-11-16
 
     <p>Here's the structure we'll use for storing surfaces:</p>
 
-{% highlight c++ %}
+```c++
 ​    struct surface {
         float vertices[4][3];
         float matrix[9];
 
         float s_dist, t_dist;
     };
-{% endhighlight %}
+```
 
     <p>For each surface that will be lightmapped, there's a rotation matrix that will convert a vector from the surface's texture space to world space, since the light's position will be specified in world space.</p>
 
@@ -43,14 +43,14 @@ date: 2003-11-16
 
     <p>Right above the function, we have two global arrays of three floats: <b>light_pos</b>, which contains the position of the light in the scene, and <b>light_color</b>, which contains the color of the light in the scene. They're initialized like so:</p>
 
-{% highlight c++ %}
+```c++
 ​    static float light_pos[3] = { 1.0f, 0.0f, 0.25f };
     static float light_color[3] = { 1.0f, 1.0f, 1.0f };
-{% endhighlight %}
+```
 
     <p>Now let's take a look at the generate_lightmap function:</p>
 
-{% highlight c++ %}
+```c++
 ​    static unsigned int
     generate_lightmap(struct surface *surf)
     {
@@ -59,56 +59,56 @@ date: 2003-11-16
         unsigned int i, j;
         float pos[3];
         float step, s, t;
-{% endhighlight %}
+```
 
     <p>The <b>data</b> array contains the RGB pixel data of the lightmap. Before going any further, we'll get a texture number from OpenGL for the lightmaps (we'll be using the same number for each lightmap, since they'll all be generated dynamically):</p>
 
-{% highlight c++ %}
+```c++
 ​        if(lightmap_tex_num == 0)
             glGenTextures(1, &lightmap_tex_num);
-{% endhighlight %}
+```
 
     <p>Now to create a lightmap with the information we have. First, we'll have a float variable named <b>step</b>, which is what s_dist and t_dist can be multiplied by to get the distance between two pixels of the lightmap. A constant called <b>LIGHTMAP_SIZE</b> (defined as 16 in the demo) will be used as the width and height of the lightmap, so step is initialized as follows:</p>
 
-{% highlight c++ %}
+```c++
 ​        step = 1.0f / LIGHTMAP_SIZE;
-{% endhighlight %}
+```
 
     <p>Our current texture space position will be stored in two floats named <b>s</b> and <b>t</b>; they both start at 0.0 (the top left corner of the lightmap) and end at 1.0 (the bottom right corner of the lightmap). Now let's start looping through each pixel of the lightmap...</p>
 
-{% highlight c++ %}
+```c++
 ​        s = t = 0.0f;
         for(i = 0; i < LIGHTMAP_SIZE; i++) {
             for(j = 0; j < LIGHTMAP_SIZE; j++) {
                 float d;
                 float tmp;
-{% endhighlight %}
+```
 
     <p><b>i</b> is the current vertical (Y) position on the lightmap and <b>j</b> is the current horizontal (X) position on the lightmap. <b>d</b> will contain half the squared world space distance between the light and the current pixel of the lightmap, and <b>tmp</b> will contain the lighting intensity (from 0.0 to 1.0) of the current pixel. The first thing we do in the loop is get the world space position of the current pixel. To do this, we first store the texture space position of the current pixel in a 3D vector named <b>pos</b>:</p>
 
-{% highlight c++ %}
+```c++
 ​                pos[0] = surf->s_dist * s;
                 pos[1] = surf->t_dist * t;
                 pos[2] = 0.0f;
-{% endhighlight %}
+```
 
     <p>Now we multiply this by the surface's rotation matrix, which converts it from texture space to world space:</p>
 
-{% highlight c++ %}
+```c++
 ​                multiply_vector_by_matrix(surf->matrix, pos);
-{% endhighlight %}
+```
 
     <p>... and then add the position of the surface's first (top left of lightmap) vertex, so that the now-rotated vector is in the correct world space position:</p>
 
-{% highlight c++ %}
+```c++
 ​                pos[0] += surf->vertices[0][0];
                 pos[1] += surf->vertices[0][1];
                 pos[2] += surf->vertices[0][2];
-{% endhighlight %}
+```
 
     <p>To get half the squared distance from this vector to the light's position, we subtract the light's position from it and dot the resulting vector by itself, then multiply that by 0.5:</p>
 
-{% highlight c++ %}
+```c++
 ​                pos[0] -= light_pos[0];
                 pos[1] -= light_pos[1];
                 pos[2] -= light_pos[2];
@@ -117,32 +117,32 @@ date: 2003-11-16
                 if(d < 1.0f)
                     d = 1.0f;
                 tmp = 1.0f / d;
-{% endhighlight %}
+```
 
     <p>tmp now contains a lighting value that we can use to set each RGB component of the current pixel of the lightmap:</p>
 
-{% highlight c++ %}
+```c++
 ​                data[i * LIGHTMAP_SIZE * 3 + j * 3 + 0] = (unsigned char)(255.0f * tmp * light_color[0]);
                 data[i * LIGHTMAP_SIZE * 3 + j * 3 + 1] = (unsigned char)(255.0f * tmp * light_color[1]);
                 data[i * LIGHTMAP_SIZE * 3 + j * 3 + 2] = (unsigned char)(255.0f * tmp * light_color[2]);
-{% endhighlight %}
+```
 
     <p>Each RGB color component of the pixel is set to 255 (the maximum value of an unsigned byte) multiplied by the lighting value and the corresponding RGB color component of the light (this allows for colored lighting).</p>
 
     <p>After each pixel, we increase s by step; at the end of each line of the lightmap, we increase t by step and set s to 0.0 again.</p>
 
-{% highlight c++ %}
+```c++
 ​                s += step;
             }
 
             t += step;
             s = 0.0f;
         }
-{% endhighlight %}
+```
 
     <p>Now we create an OpenGL texture out of the lightmap, and then we're done with lightmap creation:</p>
 
-{% highlight c++ %}
+```c++
 ​        glBindTexture(GL_TEXTURE_2D, lightmap_tex_num);
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -154,24 +154,24 @@ date: 2003-11-16
 
         return lightmap_tex_num;
     }
-{% endhighlight %}
+```
 
     <h2>Multitexturing and Rendering</h2>
 
     <p>Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the <b>scene_render</b> function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The <b>lighting</b> variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).</p>
 
-{% highlight c++ %}
+```c++
 ​    glActiveTextureARB(GL_TEXTURE0_ARB);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, surface_tex_num);
     glActiveTextureARB(GL_TEXTURE1_ARB);
     if(lighting)
         glEnable(GL_TEXTURE_2D);
-{% endhighlight %}
+```
 
     <p>Then the surfaces are rendered with this loop (the <b>surfaces</b> array contains pointers to six surfaces):</p>
 
-{% highlight c++ %}
+```c++
 ​    for(i = 0; i < 6; i++) {
         if(!surfaces[i])
             break;
@@ -193,7 +193,7 @@ date: 2003-11-16
             glVertex3fv(surfaces[i]->vertices[3]);
         glEnd();
     }
-{% endhighlight %}
+```
 
     <p>And we're done. Here's a screenshot of the demo:</p>
 

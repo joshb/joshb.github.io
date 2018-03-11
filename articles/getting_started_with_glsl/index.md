@@ -18,7 +18,7 @@ date: 2010-12-30
 
     <p>A shader object represents a single shader of a certain type (for example, a vertex shader or a fragment shader). Typically, you will create a shader object, pass it the shader source code as a string, and then compile it. The demo accompanying this article contains a C source file called shader.c that contains a function to easily compile a GLSL shader contained in a file:</p>
 
-{% highlight c++ %}
+```c++
 /*
  * Returns a shader object containing a shader
  * compiled from the given GLSL shader file.
@@ -62,13 +62,13 @@ shaderCompileFromFile(GLenum type, const char *filePath)
 
     return shader;
 }
-{% endhighlight %}
+```
 
     <p>The above function first calls <strong>shaderLoadSource</strong>, another function defined in the shader.c file which simply returns a string containing the contents of the file with the given file path. Next, it creates a shader object using the OpenGL <strong>glCreateShader</strong> function and sets the shader's source by using the <strong>glShaderSource</strong> function. Finally, the shader is compiled with the <strong>glCompileShader</strong> function, the memory containing the shader source string is freed, and error checking is performed. The function returns a GLuint value that can be used to refer to the shader object.</p>
 
     <p>Once a shader has been compiled, it should then be attached to a program object. A program object can be created with the <strong>glCreateProgram</strong> function. The shader.c file of the demo contains a function to easily compile a shader and attach it to a program object:</p>
 
-{% highlight c++ %}
+```c++
 /*
  * Compiles and attaches a shader of the
  * given type to the given program object.
@@ -88,13 +88,13 @@ shaderAttachFromFile(GLuint program, GLenum type, const char *filePath)
         glDeleteShader(shader);
     }
 }
-{% endhighlight %}
+```
 
     <p>This function takes arguments containing the GLuint that represents the program object to attach the shader to, the type of the shader (such as <strong>GL_VERTEX_SHADER</strong> or <strong>GL_FRAGMENT_SHADER</strong>), and the path to the file containing the shader. It first calls the <strong>shaderCompileFromFile</strong> function that was described above in order to compile the shader; if the compilation is successful, it then attaches it to the program using the <strong>glAttachShader</strong> function and deletes the shader using the <strong>glDeleteShader</strong> function (as mentioned in a comment in the source code, the shader won't actually be destroyed until the program that it's attached to has been destroyed).</p>
 
     <p>Once shaders have been attached to the program object, the program object can be linked using the <strong>glLinkProgram</strong> function. The <strong>sceneInit</strong> function in the demo contains the following code for creating a program object, attaching shaders, and linking the program:</p>
 
-{% highlight c++ %}
+```c++
 void
 sceneInit(void)
 {
@@ -125,11 +125,11 @@ sceneInit(void)
         glDeleteProgram(g_program);
         g_program = 0;
     }
-{% endhighlight %}
+```
 
     <p>After the program has been linked, the <strong>glGetUniformLocation</strong> function is used to retrieve the locations of some uniform variables that are defined in the shaders:</p>
 
-{% highlight c++ %}
+```c++
 ​    /* get uniform locations */
     g_programCameraPositionLocation = glGetUniformLocation(g_program, "cameraPosition");
     g_programLightPositionLocation = glGetUniformLocation(g_program, "lightPosition");
@@ -142,7 +142,7 @@ sceneInit(void)
 
     ...
 }
-{% endhighlight %}
+```
 
     <p>As we will see later, these uniform variable locations will allow us to pass information to the shaders - namely the camera position and the position/color information of three lights. <strong>g_lightColor</strong> is a float array, the contents of which will be passed to the program object when we use it later. The <strong>sceneInit</strong> function then performs some other initialization tasks that are not important to our discussion of shaders.</p>
 
@@ -150,7 +150,7 @@ sceneInit(void)
 
     <p>Now that we know how to compile shaders and link them using program objects, let's take a look at some shaders, beginning with <strong>shader.vp</strong>, the vertex shader that is included with the demo accompanying this article. GLSL has a C-like syntax that you should find familiar. The vertex shader begins with the following lines:</p>
 
-{% highlight c++ %}
+```c++
 const int NUM_LIGHTS = 3;
 
 uniform vec3 cameraPosition;
@@ -159,7 +159,7 @@ uniform vec3 lightPosition[NUM_LIGHTS];
 varying vec3 fragmentNormal;
 varying vec3 cameraVector;
 varying vec3 lightVector[NUM_LIGHTS];
-{% endhighlight %}
+```
 
     <p><strong>NUM_LIGHTS</strong> is simply a constant indicating the number of lights that will be used in the demo; this constant will make it easy to change the number of lights, if necessary.</p>
 
@@ -169,7 +169,7 @@ varying vec3 lightVector[NUM_LIGHTS];
 
     <p>The <strong>main</strong> function of the shader, which contains the actual shader code that is executed for each vertex, is shown below:</p>
 
-{% highlight c++ %}
+```c++
 void
 main()
 {
@@ -185,7 +185,7 @@ main()
     // output the transformed vertex
     gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }
-{% endhighlight %}
+```
 
     <p>The first thing the shader does is pass the vertex normal to the fragment shader through the <strong>fragmentNormal</strong> variable; because this variable was defined as a varying value, its value will be interpolated across the surface being rendered. The built-in <strong>gl_Normal</strong> variable can be used in vertex shaders to access the normal of the vertex (the demo uses the <strong>glNormalPointer</strong> function to supply normal data).</p>
 
@@ -197,30 +197,30 @@ main()
 
     <p>Let's now move on to <strong>shader.fp</strong>, the fragment shader included with the demo. This shader's job is to calculate diffuse and specular lighting values for each fragment (or pixel) that is drawn while the program object is enabled. This shader begins by defining several constants:</p>
 
-{% highlight c++ %}
+```c++
 const int NUM_LIGHTS = 3;
 const vec3 AMBIENT = vec3(0.1, 0.1, 0.1);
 const float MAX_DIST = 2.5;
 const float MAX_DIST_SQUARED = MAX_DIST * MAX_DIST;
-{% endhighlight %}
+```
 
     <p><strong>NUM_LIGHTS</strong> is once again simply the number of lights that we have. <strong>AMBIENT</strong> defines the ambient lighting value, which is the color of a fragment that has no diffuse or specular lighting contribution from any of the three lights. <strong>MAX_DIST</strong> and <strong>MAX_DIST_SQUARED</strong> are used to attenuate the lighting for fragments as their distances from the lights increase.</p>
 
     <p>Next, we have a uniform and some varyings:</p>
 
-{% highlight c++ %}
+```c++
 uniform vec3 lightColor[NUM_LIGHTS];
 
 varying vec3 fragmentNormal;
 varying vec3 cameraVector;
 varying vec3 lightVector[NUM_LIGHTS];
-{% endhighlight %}
+```
 
     <p><strong>lightColor</strong> contains the light color values passed in by the demo application; the X, Y, and Z components of these <strong>vec3</strong> values correspond to the red, green, and blue components of the light colors, respectively. The varyings were set in the vertex shader and their values have been interpolated across the surface being rendered so that they can be used in the fragment shader; <strong>fragmentNormal</strong> is now the normal of the current fragment, <strong>cameraVector</strong> is a vector pointing to the camera from the current fragment, and the <strong>lightVector</strong> array contains vectors pointing in the direction of each light from the current fragment.</p>
 
     <p>The <strong>main</strong> function, which is executed for each fragment drawn, begins with the following lines of code:</p>
 
-{% highlight c++ %}
+```c++
 void
 main()
 {
@@ -231,43 +231,43 @@ main()
     // normalize the fragment normal and camera direction
     vec3 normal = normalize(fragmentNormal);
     vec3 cameraDir = normalize(cameraVector);
-{% endhighlight %}
+```
 
     <p>We first initialize the overall diffuse/specular values for the current fragment; the diffuse/specular values that we calculate for each individual light will be added to these vectors. Next, we normalize the normal that was passed in from the vertex shader using the built-in <strong>normalize</strong> function; this is done because <strong>fragmentNormal</strong> has been interpolated and is thus not an accurate normal. We also normalize <strong>cameraVector</strong> to get a unit direction vector pointing to the camera.</p>
 
     <p>We then start calculating the lighting contribution from each light:</p>
 
-{% highlight c++ %}
+```c++
 ​    // loop through each light
     for(int i = 0; i < NUM_LIGHTS; ++i) {
         // calculate distance between 0.0 and 1.0
         float dist = min(dot(lightVector[i], lightVector[i]), MAX_DIST_SQUARED) / MAX_DIST_SQUARED;
         float distFactor = 1.0 - dist;
-{% endhighlight %}
+```
 
     <p>The <strong>MAX_DIST_SQUARED</strong> constant contains the squared maximum distance that a fragment can be from a light in order to be affected by it. We see two built-in GLSL functions here: <strong>dot</strong> returns the dot product of the given vectors, and <strong>min</strong> returns the minimum value passed to it. <strong>dist</strong> will end up being a value from 0.0 to 1.0 and <strong>distFactor</strong> will be the inverse. If the distance between the current fragment and the light is small, <strong>distFactor</strong> will be close to 1.0 (full lighting contribution); if the distance between the current fragment and the light is greater than or equal to <strong>MAX_DIST_SQUARED</strong>, <strong>distFactor</strong> will be 0.0 (no lighting contribution).</p>
 
     <p>Next, we calculate the diffuse lighting contribution from the current light:</p>
 
-{% highlight c++ %}
+```c++
 ​        // diffuse
         vec3 lightDir = normalize(lightVector[i]);
         float diffuseDot = dot(normal, lightDir);
         diffuse += lightColor[i] * clamp(diffuseDot, 0.0, 1.0) * distFactor;
-{% endhighlight %}
+```
 
     <p>The vector to the current light from the current fragment is normalized and stored in <strong>lightDir</strong> to give us a normalized direction vector to the light. The dot product between the fragment normal and <strong>lightDir</strong> is then calculated and stored in the <strong>diffuseDot</strong> variable. If the two vectors are pointing in exactly the same direction, the dot product will be 1.0, giving the full diffuse lighting value; as the angle between the vectors increases, the dot product decreases, and if they're facing opposite directions, the dot product will be negative (in this case, the current fragment is not lit by the current light). Once we have the dot product, we use it to compute the diffuse contribution from the light and add it to the overall <strong>diffuse</strong> vector; note that we use the built-in <strong>clamp</strong> function to make sure that we don't subtract from the diffuse vector when the dot product is negative.</p>
 
     <p>We then calculate the specular lighting contribution from the current light, which will give objects drawn a shiny appearance:</p>
 
-{% highlight c++ %}
+```c++
 ​        // specular
         vec3 halfAngle = normalize(cameraDir + lightDir);
         vec3 specularColor = min(lightColor[i] + 0.5, 1.0);
         float specularDot = dot(normal, halfAngle);
         specular += specularColor * pow(clamp(specularDot, 0.0, 1.0), 16.0) * distFactor;
     }
-{% endhighlight %}
+```
 
     <p><strong>halfAngle</strong> contains the normalized direction vector that is halfway between the direction to the camera and the direction to the current light. The specular lighting contribution is calculated similarly to how the diffuse lighting was, but we will compare the fragment normal to <strong>halfAngle</strong> instead of to the direction vector to the light itself. To visualize how this works, look at the figure below:</p>
 
@@ -281,11 +281,11 @@ main()
 
     <p>Finally, we output the final fragment color:</p>
 
-{% highlight c++ %}
+```c++
 ​    vec4 sample = vec4(1.0, 1.0, 1.0, 1.0);
     gl_FragColor = vec4(clamp(sample.rgb * (diffuse + AMBIENT) + specular, 0.0, 1.0), sample.a);
 }
-{% endhighlight %}
+```
 
     <p><strong>sample</strong> is a <strong>vec4</strong> variable representing the natural color of the fragment, which is white in this case (the fourth component of the vector represents the alpha value). We combine <strong>sample</strong>, <strong>diffuse</strong>, <strong>AMBIENT</strong>, and <strong>specular</strong> to generate our final fragment color, which we assign to the built-in <strong>gl_FragColor</strong> variable, and the fragment shader is complete.</p>
 
@@ -293,7 +293,7 @@ main()
 
     <p>Now that we have vertex/fragment shaders and know how to compile/link them, we can use them when rendering objects. Rendering is done by the <strong>sceneRender</strong> function in the demo:</p>
 
-{% highlight c++ %}
+```c++
 void
 sceneRender(void)
 {
@@ -312,7 +312,7 @@ sceneRender(void)
 
     /* disable program */
     glUseProgram(0);
-{% endhighlight %}
+```
 
     <p>After clearing the color and depth buffers, we call <strong>glUseProgram</strong> to use the program object that our shaders are attached to. We then set some uniform variables in the shaders using the <strong>glUniform3fv</strong> function, which allows us to set <strong>vec3</strong> uniforms. For each uniform, we pass in the location of the uniform (which we obtained after linking the program object), the number of vectors at that location (which will be greater than 1 for arrays), and a pointer to an array of floats containing the vector data. The <strong>g_cameraPosition</strong> and <strong>g_lightColor</strong> values were initialized in the <strong>sceneInit</strong> function, while the <strong>g_lightPosition</strong> values are changed continuously by the <strong>sceneCycle</strong> function contained in the demo.</p>
 
@@ -320,7 +320,7 @@ sceneRender(void)
 
     <p>Finally, we just render some spheres to represent the lights, call <strong>glutSwapBuffers</strong>, and we're done:</p>
 
-{% highlight c++ %}
+```c++
 ​    /* render each light */
     for(i = 0; i < NUM_LIGHTS; ++i) {
         /* render sphere with the light's color/position */
@@ -333,7 +333,7 @@ sceneRender(void)
 
     glutSwapBuffers();
 }
-{% endhighlight %}
+```
 
     <p>A screenshot of the demo program can be seen below:</p>
 

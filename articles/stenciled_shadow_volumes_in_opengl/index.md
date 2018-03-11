@@ -21,42 +21,42 @@ last_updated_date: 2008-08-31
 
     <p>In the demo accompanying this article, we have a <strong>surface</strong> structure which represents a quadrilateral surface:</p>
 
-{% highlight c++ %}
+```c++
 ​    struct surface {
         float vertices[4][3];
         float matrix[9];
 
         float s_dist, t_dist;
     };
-{% endhighlight %}
+```
 
     <p>The <strong>vertices</strong> array contains four 3D vectors representing each vertex of a quadrilateral surface. <strong>matrix</strong>, <strong>s_dist</strong> and <strong>t_dist</strong> are used for lightmap generation, so they're irrelevant to this article; see my <a href="../dynamic_lightmaps_in_opengl/">Dynamic Lightmaps in OpenGL</a> article if you're interested in lightmaps.</p>
 
     <p>We also have a <strong>cube</strong> structure, which just makes it easy to store a cube model that's made up of six surfaces:</p>
 
-{% highlight c++ %}
+```c++
 ​    struct cube {
         struct surface *surfaces[6];
         float position[3];
     };
-{% endhighlight %}
+```
 
     <p>The <strong>surfaces</strong> array contains pointers to each of the six surfaces required to make up a cube. <strong>position</strong> is a 3D vector representing the position of the cube.</p>
 
     <p>Now let's look at the function that renders a surface's shadow volume. The <strong>render_surface_shadow_volume</strong> function will render a shadow volume for the <strong>surface</strong> that is passed to it:</p>
 
-{% highlight c++ %}
+```c++
 ​    static void
     render_surface_shadow_volume(struct surface *surf,
                                  float *surf_pos, float *light_pos)
     {
         int i;
         float v[4][3];
-{% endhighlight %}
+```
 
     <p>The <strong>surf</strong> argument is a pointer to a surface, the <strong>surf_pos</strong> argument is a pointer to a 3D vector representing the surface's position, and <strong>light_pos</strong> is a pointer to a 3D vector representing the position of the light that's blocked by the surface (thus causing a shadow).</p>
 
-{% highlight c++ %}
+```c++
 ​        for(i = 0; i < 4; i++) {
             surf->vertices[i][0] += surf_pos[0];
             surf->vertices[i][1] += surf_pos[1];
@@ -73,7 +73,7 @@ last_updated_date: 2008-08-31
             v[i][1] += light_pos[1];
             v[i][2] += light_pos[2];
         }
-{% endhighlight %}
+```
 
     <p>The above loop does two things: first, it adds the surface's position to each of the surface's vertices. This is just for convenience, and the position will be subtracted from the surface's vertices at the end of the function. Second, it stores in the <strong>v</strong> array the surface's vertices extruded towards infinity in the direction from the light to each vertex. Remember that a shadow volume is supposed to enclose every possible point that could be shadowed, so it must start from the surface and end at the furthest distance away that an occluded object could be. Of course, multiplying a vertex by <strong>M_INFINITY</strong> (which is defined as 50.0f in the demo) doesn't really extrude it to infinity, but it does extrude it beyond the furthest distance away that an occluded object could be in this demo. An improvement over this would be to use an "infinite projection matrix", but we'll use the method above in order to keep things simple.</p>
 
@@ -85,7 +85,7 @@ last_updated_date: 2008-08-31
 
     <p>Next, we'll render the back and front caps of the shadow volume; basically, the front cap is the same as the surface itself, and the back cap is the surface extruded towards infinity. This will insure that we have a closed shadow volume, which is needed for the stencil operations we'll do later.</p>
 
-{% highlight c++ %}
+```c++
 ​        /* back cap */
         glBegin(GL_QUADS);
             glVertex3fv(v[3]);
@@ -101,11 +101,11 @@ last_updated_date: 2008-08-31
             glVertex3fv(surf->vertices[2]);
             glVertex3fv(surf->vertices[3]);
         glEnd();
-{% endhighlight %}
+```
 
     <p>The next loop will render a quadrilateral for each edge of the surface, resulting in four quads. Each quadrilateral will start at the edge of the surface itself, and end at the corresponding edge of the extruded back cap of the surface.</p>
 
-{% highlight c++ %}
+```c++
 ​        glBegin(GL_QUAD_STRIP);
         glVertex3fv(surf->vertices[0]);
         glVertex3fv(v[0]);
@@ -114,18 +114,18 @@ last_updated_date: 2008-08-31
             glVertex3fv(v[i % 4]);
         }
         glEnd();
-{% endhighlight %}
+```
 
     <p>Next we subtract the surface position from each of its vertices, as mentioned earlier, and the function is done.</p>
 
-{% highlight c++ %}
+```c++
 ​        for(i = 0; i < 4; i++) {
             surf->vertices[i][0] -= surf_pos[0];
             surf->vertices[i][1] -= surf_pos[1];
             surf->vertices[i][2] -= surf_pos[2];
         }
     }
-{% endhighlight %}
+```
 
     <h2>Stencil Operations and Rendering</h2>
 
@@ -135,7 +135,7 @@ last_updated_date: 2008-08-31
 
     <p>The <strong>render_cube_shadow</strong> will render a shadow volume for each surface of a cube, modifying the stencil buffer appropriately. Here's how the function and its loop start out:</p>
 
-{% highlight c++ %}
+```c++
 ​    static void
     render_cube_shadow(struct cube *c)
     {
@@ -148,7 +148,7 @@ last_updated_date: 2008-08-31
             glEnable(GL_STENCIL_TEST);
             glEnable(GL_POLYGON_OFFSET_FILL);
             glPolygonOffset(0.0f, 100.0f);
-{% endhighlight %}
+```
 
     <p>The first thing we do in the loop, shown above, is disable writing to the color and depth buffers, since we're only concerned with updating the stencil buffer for now. Next, we enable front/back face culling and enable stencil testing. Last, we enable and set a polygon offset, in order to work around some depth buffer precision issues ("Z-fighting") when rendering a surface's shadow volume over the surface itself.</p>
 
@@ -160,12 +160,12 @@ last_updated_date: 2008-08-31
 
     <p>In order for the stencil operations to be carried out correctly, we'll render the shadow volume in two passes. Let's take a look at the first pass:</p>
 
-{% highlight c++ %}
+```c++
 ​            glCullFace(GL_FRONT);
             glStencilFunc(GL_ALWAYS, 0x0, 0xff);
             glStencilOp(GL_KEEP, GL_INCR, GL_KEEP);
             render_surface_shadow_volume(c->surfaces[i], c->position, light_pos);
-{% endhighlight %}
+```
 
     <p>In the bit of code above, we cause front faces (that is, polygons facing towards the viewer) to be culled, so that only back faces are drawn. The stencil operations above basically mean that when the depth test fails (that is, a pixel of the polygon is further away than the pixel that's already stored in its place on the screen), we increment the pixel's stencil value.</p>
 
@@ -177,12 +177,12 @@ last_updated_date: 2008-08-31
 
     <p>As you can see, the entire "occluded sphere" is considered to be shadowed at this point, which is wrong. That's where the second pass comes in:</p>
 
-{% highlight c++ %}
+```c++
 ​            glCullFace(GL_BACK);
             glStencilFunc(GL_ALWAYS, 0x0, 0xff);
             glStencilOp(GL_KEEP, GL_DECR, GL_KEEP);
             render_surface_shadow_volume(c->surfaces[i], c->position, light_pos);
-{% endhighlight %}
+```
 
     <p>The code above causes back faces to be culled, so that only front faces are drawn. The stencil operations mean that when the depth test fails, we decrement the pixel's stencil value. Here's how it would affect the last image:</p>
 
@@ -192,7 +192,7 @@ last_updated_date: 2008-08-31
 
     <p>Now let's finish up the loop and the function:</p>
 
-{% highlight c++ %}
+```c++
 ​            glDisable(GL_POLYGON_OFFSET_FILL);
             glDisable(GL_CULL_FACE);
             glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
@@ -204,7 +204,7 @@ last_updated_date: 2008-08-31
             glDisable(GL_STENCIL_TEST);
         }
     }
-{% endhighlight %}
+```
 
     <p>In the above bit of code, we disable the polygon offset and front/back face culling, and re-enable writing to the color and depth buffers. Then we set the stencil operations to reset each pixel's stencil value for anything we draw, and we call <strong>draw_shadow</strong>, which just fills the screen with a dark quad - however, due to the stencil operations we performed when rendering the back and front faces of the surface's shadow volume, the dark quad will color in only the areas that have been shadowed by the surface.</p>
 
