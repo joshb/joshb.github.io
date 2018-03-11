@@ -6,7 +6,7 @@ date: 2009-01-19
 
 This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
-    <h2>Triangle Rasterization</h2>
+## Triangle Rasterization
 
 In our <a href="../simple_line_drawing/">previous article</a>, we implemented a function for drawing lines. This was adequate for drawing simple wireframes, such as the triangle consisting of three lines as displayed in the demo program, but now let's shift our attention to full triangle rasterization. This will enable us to draw fully shaded triangles with independent colors for each vertex. This is a bit more complicated than simple line drawing, but it will build on top of that knowledge.
 
@@ -40,7 +40,7 @@ So the first step is to use the three points to determine the edges of the trian
 
 Let's now dive into the code for doing all of this, starting with the first step: edge calculation.
 
-    <h2>Edge Calculation</h2>
+## Edge Calculation
 
 First, we need a class to represent a single edge of a triangle. Here's the definition of the class:
 
@@ -136,7 +136,7 @@ Next, we pass the edges to the <strong>DrawSpansBetweenEdges()</strong> function
 
 As mentioned earlier, the tall edge's length in the y axis is the sum of the lengths in the y axis of the other two edges. Because the two short edges have different slopes, we take one short edge at a time to calculate the minimum/maximum x values of each span within the edge's boundaries. Let's now look at how we calculate the spans.
 
-    <h2>Span Calculation</h2>
+## Span Calculation
 
 Just like we have a class to represent edges, we have one to represent spans. Here's the definition:
 
@@ -235,7 +235,7 @@ Here's the loop that calculates spans and passes them to the <strong>DrawSpan()<
 
 The x and color values for each span are interpolated from the first point of each edge to the second point, similarly to the line drawing function from our last tutorial. Once the loop finishes, the function is complete. Let's now take a look at the <strong>DrawSpan()</strong> function, which is where we draw each individual pixel of a span.
 
-    <h2>Span Drawing</h2>
+## Span Drawing
 
 Span drawing is basically like drawing a one-dimensional line that exists only in the x axis. We loop from the minimum x value of the span to the maximum x value, interpolating the color and setting pixels along the way.
 

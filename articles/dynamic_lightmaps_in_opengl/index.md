@@ -6,7 +6,7 @@ date: 2003-11-16
 
 This article explains how to implement dynamic lightmaps in OpenGL with multitexturing. Features sample C code and is accompanied by a demo written in C.
 
-    <h2>Lightmaps</h2>
+## Lightmaps
 
 First, a short explanation of lightmaps, in case you're not already familiar with them. A lightmap is a texture, with each of its pixels being a lighting value that another texture's corresponding pixel is combined with. In this article, we'll be multiplying each surface's texture by its corresponding lightmap. Each pixel of the lightmap represents a number between 0.0 and 1.0; so if a pixel on an RGB texture is (0.0, 0.0, 1.0), and it's multiplied by the corresponding pixel on its lightmap that equals (0.5, 0.5, 0.5), the resulting, combined pixel would be (0.0, 0.0, 0.5).
 
@@ -14,7 +14,7 @@ This type of texture combining can be achieved with OpenGL's multitexturing func
 
 Now let's take a look at how to implement dynamically generated lightmaps.
 
-    <h2>Geometry information</h2>
+## Geometry information
 
 Here's the structure we'll use for storing surfaces:
 
@@ -37,7 +37,7 @@ We also need to know the world space distances between the surface's top left co
 
 All of the above is done in the <b>new_surface</b> function in the demo.
 
-    <h2>Creating the Lightmaps</h2>
+## Creating the Lightmaps
 
 The generation of lightmaps is done in a function called <b>generate_lightmap</b>. It takes a pointer to a surface as an argument, and returns a texture number that can be used in a glBindTexture call.
 
@@ -156,7 +156,7 @@ Now we create an OpenGL texture out of the lightmap, and then we're done with li
     }
 ```
 
-    <h2>Multitexturing and Rendering</h2>
+## Multitexturing and Rendering
 
 Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the <b>scene_render</b> function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The <b>lighting</b> variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).
 

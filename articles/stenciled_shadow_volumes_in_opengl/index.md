@@ -11,7 +11,7 @@ If you read my previous article, <a href="../dynamic_lightmaps_in_opengl/">Dynam
 
 One popular technique is stenciled shadow volumes. As the name implies, the technique makes use of the stencil buffer. If you're not familiar with the stencil buffer, you may want to learn about that before reading this article.
 
-    <h2>Shadow Volumes</h2>
+## Shadow Volumes
 
 So, what is a shadow volume anyway?
 
@@ -127,7 +127,7 @@ Next we subtract the surface position from each of its vertices, as mentioned ea
     }
 ```
 
-    <h2>Stencil Operations and Rendering</h2>
+## Stencil Operations and Rendering
 
 Now that we have a function to render shadow volumes, let's put it to use. There are a few slightly different methods of doing the stenciling portion of stenciled shadow volumes; the method used below is generally called "depth fail" (or "Z fail"), because it consists of two passes that modify the stencil value when the depth test fails.
 

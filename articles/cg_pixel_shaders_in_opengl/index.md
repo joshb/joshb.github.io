@@ -6,13 +6,13 @@ date: 2004-07-02
 
 This article provides an introduction to writing pixel shaders with the Cg shader programming language and using them in OpenGL with the ARB_fragment_program extension. It contains sample C and Cg code and is accompanied by a simple diffuse lighting demo with full source code.
 
-    <h2>Shaders</h2>
+## Shaders
 
 Simply put, shaders are small programs that are executed on a per-vertex or per-pixel basis. Vertex Shaders (also sometimes called Vertex Programs) are executed on each vertex that's processed by the graphics API. Pixel Shaders (also sometimes called Fragment Shaders or Fragment Programs) are executed on each pixel that's rendered.
 
 The powerful flexibility enabled by shaders is probably the biggest advance in real-time graphics programming in the past several years. Most modern GPUs, particularly ones made by NVIDIA and ATI, support vertex and pixel shaders. <a href="http://www.mesa3d.org/">Mesa</a>, a software-based OpenGL-compatible graphics library, also supports shaders; you may want to check that out if you have an older graphics card that doesn't have shader support, but it will obviously run very slow compared to a hardware implementation.
 
-    <h2>Cg</h2>
+## Cg
 
 Cg ("C for graphics") is a high-level shader programming language developed by NVIDIA. As its name implies, its syntax and semantics are very similar to those of the C programming language.
 
@@ -20,7 +20,7 @@ There are many different low-level (assembly-like) shader languages that differe
 
 If you haven't yet, you may want to download the <a href="http://developer.nvidia.com/object/cg_toolkit.html">NVIDIA Cg Toolkit</a>, which contains the NVIDIA Cg Compiler and some good documentation.
 
-    <h2>Loading Pixel Shaders in OpenGL</h2>
+## Loading Pixel Shaders in OpenGL
 
 Before we get begin writing shaders, we should have a way to load them and use them. There are some different shader extensions for OpenGL. In this article, I'll show you how to use the ARB_fragment_program extension. Note that you may need to create and set function pointers using wglGetProcAddress(), glXGetProcAddress(), or some other equivalent function to use the gl*Program*ARB functions shown below; the demo accompanying this article contains code for setting such pointers, which are prefixed with "my_", in the set_function_pointers function in scene.c.
 
@@ -51,7 +51,7 @@ At this point, our shader has been loaded and we're ready to use it. Just to be 
 
 The demo's full shader loading code can be found in the load_shader function in scene.c.
 
-    <h2>A Simple Cg Pixel Shader</h2>
+## A Simple Cg Pixel Shader
 
 Now it's time to actually create a pixel shader with Cg. As mentioned earlier, Cg is very similar to C in its syntax, so if you're familiar with that language, it shouldn't be too difficult for you to pick up. The shader described below will simply calculate a diffuse lighting value and modify the current pixel's color value appropriately.
 

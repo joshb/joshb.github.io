@@ -6,7 +6,7 @@ date: 2009-01-03
 
 This tutorial starts off a series of articles on software-based graphics rendering by introducing a simple line drawing algorithm. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
-    <h2>Rasterization</h2>
+## Rasterization
 
 First, a quick overview of this basic process of 3D graphics rendering is in order.
 
@@ -20,7 +20,7 @@ Years ago, everyone had software written to perform these tasks. These days, mos
 
 But that's all speculation for now. Aside from that, it can be a pretty interesting and fun subject to explore, so let's get started.
 
-    <h2>Drawing Pixels</h2>
+## Drawing Pixels
 
 As you might have guessed, the most fundamental task in rasterization is drawing individual pixels, so let's start there. First, let's create a C++ class for representing a color (or a single pixel). It's often handy to be able to manipulate colors in a floating-point format before converting them to the integer format of raster images when it finally comes time to render them, so that's what this class will allow us to do.
 
@@ -180,7 +180,7 @@ To help visualize this, refer to the table below, which represents a framebuffer
 
 The column and row headings on the top and left sides of the table represent the possible x and y positions, respectively, within the framebuffer. The other cells represent pixels within the framebuffer, and the number inside each cell is the pixel's index within the framebuffer array. If you need to access the pixel where y equals 2 and x equals 3, the index is <strong>2 * 8 + 3</strong>, where 8 is the width of the framebuffer in this case. The result is 19, as indicated by the bold index in the appropriate table cell above.
 
-    <h2>Drawing Lines</h2>
+## Drawing Lines
 
 Now that we're all set to draw individual pixels, let's use that ability to draw something slightly more complex - in this case, two dimensional lines. This will be done in the <strong>DrawLine()</strong> function of the <strong>Rasterizer</strong> class, which starts off as follows:
 

@@ -6,13 +6,13 @@ date: 2010-12-30
 
 This article provides an introduction to the OpenGL Shading Language (GLSL). It contains sample C and GLSL code, and is accompanied by a diffuse/specular lighting demo with full source code. The code is available under an open source, BSD-style <a href="license.txt">license</a> and was designed to be as simple as possible, so that it can easily be used in other projects.
 
-    <h2>Overview of GLSL</h2>
+## Overview of GLSL
 
 If you're not familiar with shaders, they are small programs that are executed on a per-vertex or per-pixel basis during drawing operations (there are also geometry shaders, which operate on geometric primitives, but they will not be covered in this tutorial).
 
 Although there were various other extensions for using shaders with OpenGL in the past, the OpenGL Shading Language (or GLSL for short) has been an official part of the OpenGL standard since version 2.0 and is now the preferred language for implementing shaders in OpenGL. Shaders give programmers much greater control over rendering than OpenGL's fixed function pipeline, much of which has been deprecated in recent versions of OpenGL; OpenGL ES 2.0, for embedded systems, has even dropped the fixed function pipeline in favor of a shader-based approach. GLSL is therefore an important part of modern OpenGL development.
 
-    <h2>Shader and Program Objects</h2>
+## Shader and Program Objects
 
 In order to use GLSL shaders in OpenGL, we first need to know about shader and program objects, which will allow us to compile and link GLSL shaders so that they can then be used during drawing operations. Data may be passed from one shader stage to another (for example, vertex shaders often generate information that is passed to fragment shaders), and thus this mechanism for linking multiple shaders into one program object is necessary.
 
@@ -146,7 +146,7 @@ After the program has been linked, the <strong>glGetUniformLocation</strong> fun
 
 As we will see later, these uniform variable locations will allow us to pass information to the shaders - namely the camera position and the position/color information of three lights. <strong>g_lightColor</strong> is a float array, the contents of which will be passed to the program object when we use it later. The <strong>sceneInit</strong> function then performs some other initialization tasks that are not important to our discussion of shaders.
 
-    <h2>Vertex Shader</h2>
+## Vertex Shader
 
 Now that we know how to compile shaders and link them using program objects, let's take a look at some shaders, beginning with <strong>shader.vp</strong>, the vertex shader that is included with the demo accompanying this article. GLSL has a C-like syntax that you should find familiar. The vertex shader begins with the following lines:
 
@@ -193,7 +193,7 @@ Next, the <strong>cameraVector</strong> variable is set to contain a vector poin
 
 Finally, we set the built-in <strong>gl_Position</strong> variable, which contains the final transformed position of the vertex that should be drawn. We transform the <strong>gl_Vertex</strong> vector by the built-in <strong>gl_ModelViewProjectionMatrix</strong> matrix (which is simply the product of the current projection and model view matrices) to get this value.
 
-    <h2>Fragment Shader</h2>
+## Fragment Shader
 
 Let's now move on to <strong>shader.fp</strong>, the fragment shader included with the demo. This shader's job is to calculate diffuse and specular lighting values for each fragment (or pixel) that is drawn while the program object is enabled. This shader begins by defining several constants:
 
@@ -289,7 +289,7 @@ Finally, we output the final fragment color:
 
 <strong>sample</strong> is a <strong>vec4</strong> variable representing the natural color of the fragment, which is white in this case (the fourth component of the vector represents the alpha value). We combine <strong>sample</strong>, <strong>diffuse</strong>, <strong>AMBIENT</strong>, and <strong>specular</strong> to generate our final fragment color, which we assign to the built-in <strong>gl_FragColor</strong> variable, and the fragment shader is complete.
 
-    <h2>Using the Shaders</h2>
+## Using the Shaders
 
 Now that we have vertex/fragment shaders and know how to compile/link them, we can use them when rendering objects. Rendering is done by the <strong>sceneRender</strong> function in the demo:
 
