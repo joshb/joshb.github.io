@@ -4,19 +4,19 @@ title: Tutorial - Dynamic Lightmaps in OpenGL
 date: 2003-11-16
 ---
 
-    <p>This article explains how to implement dynamic lightmaps in OpenGL with multitexturing. Features sample C code and is accompanied by a demo written in C.</p>
+This article explains how to implement dynamic lightmaps in OpenGL with multitexturing. Features sample C code and is accompanied by a demo written in C.
 
     <h2>Lightmaps</h2>
 
-    <p>First, a short explanation of lightmaps, in case you're not already familiar with them. A lightmap is a texture, with each of its pixels being a lighting value that another texture's corresponding pixel is combined with. In this article, we'll be multiplying each surface's texture by its corresponding lightmap. Each pixel of the lightmap represents a number between 0.0 and 1.0; so if a pixel on an RGB texture is (0.0, 0.0, 1.0), and it's multiplied by the corresponding pixel on its lightmap that equals (0.5, 0.5, 0.5), the resulting, combined pixel would be (0.0, 0.0, 0.5).</p>
+First, a short explanation of lightmaps, in case you're not already familiar with them. A lightmap is a texture, with each of its pixels being a lighting value that another texture's corresponding pixel is combined with. In this article, we'll be multiplying each surface's texture by its corresponding lightmap. Each pixel of the lightmap represents a number between 0.0 and 1.0; so if a pixel on an RGB texture is (0.0, 0.0, 1.0), and it's multiplied by the corresponding pixel on its lightmap that equals (0.5, 0.5, 0.5), the resulting, combined pixel would be (0.0, 0.0, 0.5).
 
-    <p>This type of texture combining can be achieved with OpenGL's multitexturing functionality. The main reason for using OpenGL's multitexturing functionality, rather than creating the combined textures manually and sending them to the video card, is that lightmaps can be much smaller than the texture they're lighting and still give very good visual results. Since different surfaces often use the same texture, but require different lightmaps, this can save a lot of texture memory and bandwidth in a complex scene.</p>
+This type of texture combining can be achieved with OpenGL's multitexturing functionality. The main reason for using OpenGL's multitexturing functionality, rather than creating the combined textures manually and sending them to the video card, is that lightmaps can be much smaller than the texture they're lighting and still give very good visual results. Since different surfaces often use the same texture, but require different lightmaps, this can save a lot of texture memory and bandwidth in a complex scene.
 
-    <p>Now let's take a look at how to implement dynamically generated lightmaps.</p>
+Now let's take a look at how to implement dynamically generated lightmaps.
 
     <h2>Geometry information</h2>
 
-    <p>Here's the structure we'll use for storing surfaces:</p>
+Here's the structure we'll use for storing surfaces:
 
 ```c++
 ​    struct surface {
@@ -27,28 +27,28 @@ date: 2003-11-16
     };
 ```
 
-    <p>For each surface that will be lightmapped, there's a rotation matrix that will convert a vector from the surface's texture space to world space, since the light's position will be specified in world space.</p>
+For each surface that will be lightmapped, there's a rotation matrix that will convert a vector from the surface's texture space to world space, since the light's position will be specified in world space.
 
-    <p>In the demo I've developed for this article, creating this matrix is easy enough: For each quadrilateral surface, the first vertex is where the top left corner of its texture is mapped to, the second vertex is where the bottom left corner of its texture is mapped, the third vertex is where the bottom right corner of its texture is mapped to, and the fourth vertex is where the top right corner of its texture is mapped to.</p>
+In the demo I've developed for this article, creating this matrix is easy enough: For each quadrilateral surface, the first vertex is where the top left corner of its texture is mapped to, the second vertex is where the bottom left corner of its texture is mapped, the third vertex is where the bottom right corner of its texture is mapped to, and the fourth vertex is where the top right corner of its texture is mapped to.
 
-    <p>The X axis of the matrix should point in the world space direction of the S texture coordinate (that is, from the top left corner to the top right corner). So we take the fourth vertex (the top right corner), subtract the first vertex (the top left corner), normalize the result, and we have the X axis. Getting the Y axis is similar: it should point in the world space direction of the T texture coordinate (top left to bottom left corners), so we take the second vertex (the bottom left corner), subtract the first vertex (the top left corner), and normalize the result. We now have the Y axis. The Z axis is the surface's normal, and is equal to the cross-product of the X axis and Y axis.</p>
+The X axis of the matrix should point in the world space direction of the S texture coordinate (that is, from the top left corner to the top right corner). So we take the fourth vertex (the top right corner), subtract the first vertex (the top left corner), normalize the result, and we have the X axis. Getting the Y axis is similar: it should point in the world space direction of the T texture coordinate (top left to bottom left corners), so we take the second vertex (the bottom left corner), subtract the first vertex (the top left corner), and normalize the result. We now have the Y axis. The Z axis is the surface's normal, and is equal to the cross-product of the X axis and Y axis.
 
-    <p>We also need to know the world space distances between the surface's top left corner and top right corner (<b>s_dist</b> in the surface structure), and the surface's top left corner and bottom left corner (<b>t_dist</b> in the surface structure). This is so we know how far apart, horizontally and vertically, each pixel of the lightmap should be in world space, which we need to know in order to get a correct lighting value for each pixel. s_dist is equal to <i>sqrt(dot_product(v4 - v1, v4 - v1))</i>, where v4 is the fourth vertex and v1 is the first vertex. t_dist is equal to <i>sqrt(dot_product(v2 - v1, v2 - v1))</i>, where v2 is the second vertex and v1 is the first vertex.</p>
+We also need to know the world space distances between the surface's top left corner and top right corner (<b>s_dist</b> in the surface structure), and the surface's top left corner and bottom left corner (<b>t_dist</b> in the surface structure). This is so we know how far apart, horizontally and vertically, each pixel of the lightmap should be in world space, which we need to know in order to get a correct lighting value for each pixel. s_dist is equal to <i>sqrt(dot_product(v4 - v1, v4 - v1))</i>, where v4 is the fourth vertex and v1 is the first vertex. t_dist is equal to <i>sqrt(dot_product(v2 - v1, v2 - v1))</i>, where v2 is the second vertex and v1 is the first vertex.
 
-    <p>All of the above is done in the <b>new_surface</b> function in the demo.</p>
+All of the above is done in the <b>new_surface</b> function in the demo.
 
     <h2>Creating the Lightmaps</h2>
 
-    <p>The generation of lightmaps is done in a function called <b>generate_lightmap</b>. It takes a pointer to a surface as an argument, and returns a texture number that can be used in a glBindTexture call.</p>
+The generation of lightmaps is done in a function called <b>generate_lightmap</b>. It takes a pointer to a surface as an argument, and returns a texture number that can be used in a glBindTexture call.
 
-    <p>Right above the function, we have two global arrays of three floats: <b>light_pos</b>, which contains the position of the light in the scene, and <b>light_color</b>, which contains the color of the light in the scene. They're initialized like so:</p>
+Right above the function, we have two global arrays of three floats: <b>light_pos</b>, which contains the position of the light in the scene, and <b>light_color</b>, which contains the color of the light in the scene. They're initialized like so:
 
 ```c++
 ​    static float light_pos[3] = { 1.0f, 0.0f, 0.25f };
     static float light_color[3] = { 1.0f, 1.0f, 1.0f };
 ```
 
-    <p>Now let's take a look at the generate_lightmap function:</p>
+Now let's take a look at the generate_lightmap function:
 
 ```c++
 ​    static unsigned int
@@ -61,20 +61,20 @@ date: 2003-11-16
         float step, s, t;
 ```
 
-    <p>The <b>data</b> array contains the RGB pixel data of the lightmap. Before going any further, we'll get a texture number from OpenGL for the lightmaps (we'll be using the same number for each lightmap, since they'll all be generated dynamically):</p>
+The <b>data</b> array contains the RGB pixel data of the lightmap. Before going any further, we'll get a texture number from OpenGL for the lightmaps (we'll be using the same number for each lightmap, since they'll all be generated dynamically):
 
 ```c++
 ​        if(lightmap_tex_num == 0)
             glGenTextures(1, &lightmap_tex_num);
 ```
 
-    <p>Now to create a lightmap with the information we have. First, we'll have a float variable named <b>step</b>, which is what s_dist and t_dist can be multiplied by to get the distance between two pixels of the lightmap. A constant called <b>LIGHTMAP_SIZE</b> (defined as 16 in the demo) will be used as the width and height of the lightmap, so step is initialized as follows:</p>
+Now to create a lightmap with the information we have. First, we'll have a float variable named <b>step</b>, which is what s_dist and t_dist can be multiplied by to get the distance between two pixels of the lightmap. A constant called <b>LIGHTMAP_SIZE</b> (defined as 16 in the demo) will be used as the width and height of the lightmap, so step is initialized as follows:
 
 ```c++
 ​        step = 1.0f / LIGHTMAP_SIZE;
 ```
 
-    <p>Our current texture space position will be stored in two floats named <b>s</b> and <b>t</b>; they both start at 0.0 (the top left corner of the lightmap) and end at 1.0 (the bottom right corner of the lightmap). Now let's start looping through each pixel of the lightmap...</p>
+Our current texture space position will be stored in two floats named <b>s</b> and <b>t</b>; they both start at 0.0 (the top left corner of the lightmap) and end at 1.0 (the bottom right corner of the lightmap). Now let's start looping through each pixel of the lightmap...
 
 ```c++
 ​        s = t = 0.0f;
@@ -84,7 +84,7 @@ date: 2003-11-16
                 float tmp;
 ```
 
-    <p><b>i</b> is the current vertical (Y) position on the lightmap and <b>j</b> is the current horizontal (X) position on the lightmap. <b>d</b> will contain half the squared world space distance between the light and the current pixel of the lightmap, and <b>tmp</b> will contain the lighting intensity (from 0.0 to 1.0) of the current pixel. The first thing we do in the loop is get the world space position of the current pixel. To do this, we first store the texture space position of the current pixel in a 3D vector named <b>pos</b>:</p>
+<b>i</b> is the current vertical (Y) position on the lightmap and <b>j</b> is the current horizontal (X) position on the lightmap. <b>d</b> will contain half the squared world space distance between the light and the current pixel of the lightmap, and <b>tmp</b> will contain the lighting intensity (from 0.0 to 1.0) of the current pixel. The first thing we do in the loop is get the world space position of the current pixel. To do this, we first store the texture space position of the current pixel in a 3D vector named <b>pos</b>:
 
 ```c++
 ​                pos[0] = surf->s_dist * s;
@@ -92,13 +92,13 @@ date: 2003-11-16
                 pos[2] = 0.0f;
 ```
 
-    <p>Now we multiply this by the surface's rotation matrix, which converts it from texture space to world space:</p>
+Now we multiply this by the surface's rotation matrix, which converts it from texture space to world space:
 
 ```c++
 ​                multiply_vector_by_matrix(surf->matrix, pos);
 ```
 
-    <p>... and then add the position of the surface's first (top left of lightmap) vertex, so that the now-rotated vector is in the correct world space position:</p>
+... and then add the position of the surface's first (top left of lightmap) vertex, so that the now-rotated vector is in the correct world space position:
 
 ```c++
 ​                pos[0] += surf->vertices[0][0];
@@ -106,7 +106,7 @@ date: 2003-11-16
                 pos[2] += surf->vertices[0][2];
 ```
 
-    <p>To get half the squared distance from this vector to the light's position, we subtract the light's position from it and dot the resulting vector by itself, then multiply that by 0.5:</p>
+To get half the squared distance from this vector to the light's position, we subtract the light's position from it and dot the resulting vector by itself, then multiply that by 0.5:
 
 ```c++
 ​                pos[0] -= light_pos[0];
@@ -119,7 +119,7 @@ date: 2003-11-16
                 tmp = 1.0f / d;
 ```
 
-    <p>tmp now contains a lighting value that we can use to set each RGB component of the current pixel of the lightmap:</p>
+tmp now contains a lighting value that we can use to set each RGB component of the current pixel of the lightmap:
 
 ```c++
 ​                data[i * LIGHTMAP_SIZE * 3 + j * 3 + 0] = (unsigned char)(255.0f * tmp * light_color[0]);
@@ -127,9 +127,9 @@ date: 2003-11-16
                 data[i * LIGHTMAP_SIZE * 3 + j * 3 + 2] = (unsigned char)(255.0f * tmp * light_color[2]);
 ```
 
-    <p>Each RGB color component of the pixel is set to 255 (the maximum value of an unsigned byte) multiplied by the lighting value and the corresponding RGB color component of the light (this allows for colored lighting).</p>
+Each RGB color component of the pixel is set to 255 (the maximum value of an unsigned byte) multiplied by the lighting value and the corresponding RGB color component of the light (this allows for colored lighting).
 
-    <p>After each pixel, we increase s by step; at the end of each line of the lightmap, we increase t by step and set s to 0.0 again.</p>
+After each pixel, we increase s by step; at the end of each line of the lightmap, we increase t by step and set s to 0.0 again.
 
 ```c++
 ​                s += step;
@@ -140,7 +140,7 @@ date: 2003-11-16
         }
 ```
 
-    <p>Now we create an OpenGL texture out of the lightmap, and then we're done with lightmap creation:</p>
+Now we create an OpenGL texture out of the lightmap, and then we're done with lightmap creation:
 
 ```c++
 ​        glBindTexture(GL_TEXTURE_2D, lightmap_tex_num);
@@ -158,7 +158,7 @@ date: 2003-11-16
 
     <h2>Multitexturing and Rendering</h2>
 
-    <p>Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the <b>scene_render</b> function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The <b>lighting</b> variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).</p>
+Now that we have the function for creating lightmaps, we can render the lightmapped surfaces (see the <b>scene_render</b> function in the demo for all of the code). Since multitexturing will be used, two texture units must be enabled (one for the surface's texture and one for its lightmap). The same texture is used for each surface, so we'll go ahead and bind it in the first texture unit now. The <b>lighting</b> variable determines whether lightmaps should be enabled (if set to 1) or not (if set to 0).
 
 ```c++
 ​    glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -169,7 +169,7 @@ date: 2003-11-16
         glEnable(GL_TEXTURE_2D);
 ```
 
-    <p>Then the surfaces are rendered with this loop (the <b>surfaces</b> array contains pointers to six surfaces):</p>
+Then the surfaces are rendered with this loop (the <b>surfaces</b> array contains pointers to six surfaces):
 
 ```c++
 ​    for(i = 0; i < 6; i++) {
@@ -195,8 +195,8 @@ date: 2003-11-16
     }
 ```
 
-    <p>And we're done. Here's a screenshot of the demo:</p>
+And we're done. Here's a screenshot of the demo:
 
     <img src="dynamiclightmaps.jpg" alt="dynamiclightmaps.jpg" />
 
-    <p>You can find the complete source code for the demo <a href="https://github.com/joshb/dynamiclightmaps">on GitHub</a>; the source code is distributed under a BSD-style license, which allows you to modify it and/or use it for your own projects.</p>
+You can find the complete source code for the demo <a href="https://github.com/joshb/dynamiclightmaps">on GitHub</a>; the source code is distributed under a BSD-style license, which allows you to modify it and/or use it for your own projects.

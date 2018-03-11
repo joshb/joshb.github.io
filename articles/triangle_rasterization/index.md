@@ -4,13 +4,13 @@ title: "Tutorial - Introduction to Software-based Rendering: Triangle Rasterizat
 date: 2009-01-19
 ---
 
-    <p>This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.</p>
+This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
     <h2>Triangle Rasterization</h2>
 
-    <p>In our <a href="../simple_line_drawing/">previous article</a>, we implemented a function for drawing lines. This was adequate for drawing simple wireframes, such as the triangle consisting of three lines as displayed in the demo program, but now let's shift our attention to full triangle rasterization. This will enable us to draw fully shaded triangles with independent colors for each vertex. This is a bit more complicated than simple line drawing, but it will build on top of that knowledge.</p>
+In our <a href="../simple_line_drawing/">previous article</a>, we implemented a function for drawing lines. This was adequate for drawing simple wireframes, such as the triangle consisting of three lines as displayed in the demo program, but now let's shift our attention to full triangle rasterization. This will enable us to draw fully shaded triangles with independent colors for each vertex. This is a bit more complicated than simple line drawing, but it will build on top of that knowledge.
 
-    <p>There are basically three steps to triangle rasterization. First, let's break triangle drawing down into a few separate stages, as shown in the figures below (each figure represents a 20x20 grid of pixels):</p>
+There are basically three steps to triangle rasterization. First, let's break triangle drawing down into a few separate stages, as shown in the figures below (each figure represents a 20x20 grid of pixels):
 
     <table cellspacing="0" cellpadding="4" border="0">
     <tbody>
@@ -34,15 +34,15 @@ date: 2009-01-19
     </tbody>
     </table>
 
-    <p>The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the <em>edges</em> of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.</p>
+The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the <em>edges</em> of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
 
-    <p>So the first step is to use the three points to determine the edges of the triangle. Next, we loop through the y axis boundaries of the triangle to calculate the horizontal <em>spans</em> that the triangle consists of; these are the horizontal lines that will form the triangle. Any row of pixels within the outline of the triangle is a span. Finally, we loop through the x axis boundaries of each span to draw each individual pixel.</p>
+So the first step is to use the three points to determine the edges of the triangle. Next, we loop through the y axis boundaries of the triangle to calculate the horizontal <em>spans</em> that the triangle consists of; these are the horizontal lines that will form the triangle. Any row of pixels within the outline of the triangle is a span. Finally, we loop through the x axis boundaries of each span to draw each individual pixel.
 
-    <p>Let's now dive into the code for doing all of this, starting with the first step: edge calculation.</p>
+Let's now dive into the code for doing all of this, starting with the first step: edge calculation.
 
     <h2>Edge Calculation</h2>
 
-    <p>First, we need a class to represent a single edge of a triangle. Here's the definition of the class:</p>
+First, we need a class to represent a single edge of a triangle. Here's the definition of the class:
 
 ```c++
 class Edge
@@ -55,7 +55,7 @@ class Edge
 };
 ```
 
-    <p>This class contains color, x, and y values for the two points that an edge consists of. The only function is the constructor, which is shown below:</p>
+This class contains color, x, and y values for the two points that an edge consists of. The only function is the constructor, which is shown below:
 
 ```c++
 Edge::Edge(const Color &color1, int x1, int y1,
@@ -79,9 +79,9 @@ Edge::Edge(const Color &color1, int x1, int y1,
 }
 ```
 
-    <p>When we're looping through the y axis, we want to start with lower values and end with higher ones, so this constructor simply makes sure that the first point of the edge is the point with the lower y value of the two given.</p>
+When we're looping through the y axis, we want to start with lower values and end with higher ones, so this constructor simply makes sure that the first point of the edge is the point with the lower y value of the two given.
 
-    <p>Let's now take a look at the <strong>DrawTriangle()</strong> function of the <strong>Rasterizer</strong> class, which creates an array of edges from the three points given:</p>
+Let's now take a look at the <strong>DrawTriangle()</strong> function of the <strong>Rasterizer</strong> class, which creates an array of edges from the three points given:
 
 ```c++
 void
@@ -97,11 +97,11 @@ Rasterizer::DrawTriangle(const Color &color1, float x1, float y1,
     };
 ```
 
-    <p>The first edge is from point one to point two, the second edge is from point two to point three, and the third edge is from point three to point one.</p>
+The first edge is from point one to point two, the second edge is from point two to point three, and the third edge is from point three to point one.
 
-    <p>Let's refer back to the figures shown earlier in the article for a moment. Notice that one edge of the triangle (the vertical one on the left) spans the entire length of the triangle in the y axis, whereas the other two edges span roughly half of the length in the y axis. When we're drawing triangles, one edge will always have a length in the y axis greater than either of the other two edges (actually, it's possible that two edges have the same length in the y axis and the third has a 0 length, but our code will handle that situation as well); its length in the y axis will be the sum of the lengths of the other two edges.</p>
+Let's refer back to the figures shown earlier in the article for a moment. Notice that one edge of the triangle (the vertical one on the left) spans the entire length of the triangle in the y axis, whereas the other two edges span roughly half of the length in the y axis. When we're drawing triangles, one edge will always have a length in the y axis greater than either of the other two edges (actually, it's possible that two edges have the same length in the y axis and the third has a 0 length, but our code will handle that situation as well); its length in the y axis will be the sum of the lengths of the other two edges.
 
-    <p>The following bit of code is used to find the index of the tallest edge (the one with the greatest length in the y axis) in the <strong>edges</strong> array:</p>
+The following bit of code is used to find the index of the tallest edge (the one with the greatest length in the y axis) in the <strong>edges</strong> array:
 
 ```c++
 ​    int maxLength = 0;
@@ -117,14 +117,14 @@ Rasterizer::DrawTriangle(const Color &color1, float x1, float y1,
     }
 ```
 
-    <p>Next, we get the indices of the shorter edges, using the modulo operator to make sure that we stay within the bounds of the array:</p>
+Next, we get the indices of the shorter edges, using the modulo operator to make sure that we stay within the bounds of the array:
 
 ```c++
 ​    int shortEdge1 = (longEdge + 1) % 3;
     int shortEdge2 = (longEdge + 2) % 3;
 ```
 
-    <p>Next, we pass the edges to the <strong>DrawSpansBetweenEdges()</strong> function, which will calculate the horizontal spans between two edges of the triangle and send them to another function for drawing indivudal spans; we call this function twice, passing in the tall edge along with each of the short edges, and the <strong>DrawTriangle()</strong> function is done:</p>
+Next, we pass the edges to the <strong>DrawSpansBetweenEdges()</strong> function, which will calculate the horizontal spans between two edges of the triangle and send them to another function for drawing indivudal spans; we call this function twice, passing in the tall edge along with each of the short edges, and the <strong>DrawTriangle()</strong> function is done:
 
 ```c++
 ​    // draw spans between edges; the long edge can be drawn
@@ -134,11 +134,11 @@ Rasterizer::DrawTriangle(const Color &color1, float x1, float y1,
 }
 ```
 
-    <p>As mentioned earlier, the tall edge's length in the y axis is the sum of the lengths in the y axis of the other two edges. Because the two short edges have different slopes, we take one short edge at a time to calculate the minimum/maximum x values of each span within the edge's boundaries. Let's now look at how we calculate the spans.</p>
+As mentioned earlier, the tall edge's length in the y axis is the sum of the lengths in the y axis of the other two edges. Because the two short edges have different slopes, we take one short edge at a time to calculate the minimum/maximum x values of each span within the edge's boundaries. Let's now look at how we calculate the spans.
 
     <h2>Span Calculation</h2>
 
-    <p>Just like we have a class to represent edges, we have one to represent spans. Here's the definition:</p>
+Just like we have a class to represent edges, we have one to represent spans. Here's the definition:
 
 ```c++
 class Span
@@ -151,7 +151,7 @@ class Span
 };
 ```
 
-    <p>This is similar to the <strong>Edge</strong> class, but it has no y values because spans are always parallel to the x axis; the function for drawing a single span (shown later in the article) will take a single y value to draw at along with a span. The constructor of the <strong>Span</strong> class makes sure that the first point stored is the one with the lower x value:</p>
+This is similar to the <strong>Edge</strong> class, but it has no y values because spans are always parallel to the x axis; the function for drawing a single span (shown later in the article) will take a single y value to draw at along with a span. The constructor of the <strong>Span</strong> class makes sure that the first point stored is the one with the lower x value:
 
 ```c++
 Span::Span(const Color &color1, int x1, const Color &color2, int x2)
@@ -170,7 +170,7 @@ Span::Span(const Color &color1, int x1, const Color &color2, int x2)
 }
 ```
 
-    <p>Span calculation is performed by the <strong>DrawSpansBetweenEdges()</strong> function. This function first takes the differences between the y positions of the points for the given edges. If either of them is 0, there are no spans to render and the function simply returns:</p>
+Span calculation is performed by the <strong>DrawSpansBetweenEdges()</strong> function. This function first takes the differences between the y positions of the points for the given edges. If either of them is 0, there are no spans to render and the function simply returns:
 
 ```c++
 void
@@ -189,7 +189,7 @@ Rasterizer::DrawSpansBetweenEdges(const Edge &e1, const Edge &e2)
         return;
 ```
 
-    <p>Next, we also calculate the differences of the x positions and colors of the points for the given edges, as this will make it a little easier to interpolate x and color values for each span:</p>
+Next, we also calculate the differences of the x positions and colors of the points for the given edges, as this will make it a little easier to interpolate x and color values for each span:
 
 ```c++
 ​    // calculate differences between the x coordinates
@@ -200,7 +200,7 @@ Rasterizer::DrawSpansBetweenEdges(const Edge &e1, const Edge &e2)
     Color e2colordiff = (e2.Color2 - e2.Color1);
 ```
 
-    <p>The last task before looping through each span is initializing factors for interpolating values between the two points of the given edges, and step values for increasing the factors each time the loop runs:</p>
+The last task before looping through each span is initializing factors for interpolating values between the two points of the given edges, and step values for increasing the factors each time the loop runs:
 
 ```c++
 ​    // calculate factors to use for interpolation
@@ -212,9 +212,9 @@ Rasterizer::DrawSpansBetweenEdges(const Edge &e1, const Edge &e2)
     float factorStep2 = 1.0f / e2ydiff;
 ```
 
-    <p>When this function is called, the first edge given must be the long edge and the second edge given must be one of the short ones. We're going to loop from the minimum y value of the second edge to the maximum y value of the second edge to calculate spans, since every span within the boundaries of the short edge will also be within the boundaries of the long edge. <strong>factor2</strong> starts at 0 and is increased by <strong>factorStep2</strong> until it reaches a value of 1 towards the end of the loop. <strong>factor1</strong>, however, may start with a value greater than 0 (if the long edge's starting y value is lower than the short edge's) or may end up at a value lower than 1 (if the long edge's ending y value is greater than the short edge's).</p>
+When this function is called, the first edge given must be the long edge and the second edge given must be one of the short ones. We're going to loop from the minimum y value of the second edge to the maximum y value of the second edge to calculate spans, since every span within the boundaries of the short edge will also be within the boundaries of the long edge. <strong>factor2</strong> starts at 0 and is increased by <strong>factorStep2</strong> until it reaches a value of 1 towards the end of the loop. <strong>factor1</strong>, however, may start with a value greater than 0 (if the long edge's starting y value is lower than the short edge's) or may end up at a value lower than 1 (if the long edge's ending y value is greater than the short edge's).
 
-    <p>Here's the loop that calculates spans and passes them to the <strong>DrawSpan()</strong> function to draw them:</p>
+Here's the loop that calculates spans and passes them to the <strong>DrawSpan()</strong> function to draw them:
 
 ```c++
 ​    // loop through the lines between the edges and draw spans
@@ -233,13 +233,13 @@ Rasterizer::DrawSpansBetweenEdges(const Edge &e1, const Edge &e2)
 }
 ```
 
-    <p>The x and color values for each span are interpolated from the first point of each edge to the second point, similarly to the line drawing function from our last tutorial. Once the loop finishes, the function is complete. Let's now take a look at the <strong>DrawSpan()</strong> function, which is where we draw each individual pixel of a span.</p>
+The x and color values for each span are interpolated from the first point of each edge to the second point, similarly to the line drawing function from our last tutorial. Once the loop finishes, the function is complete. Let's now take a look at the <strong>DrawSpan()</strong> function, which is where we draw each individual pixel of a span.
 
     <h2>Span Drawing</h2>
 
-    <p>Span drawing is basically like drawing a one-dimensional line that exists only in the x axis. We loop from the minimum x value of the span to the maximum x value, interpolating the color and setting pixels along the way.</p>
+Span drawing is basically like drawing a one-dimensional line that exists only in the x axis. We loop from the minimum x value of the span to the maximum x value, interpolating the color and setting pixels along the way.
 
-    <p>Here's how the <strong>DrawSpan()</strong> function starts. We calculate the differences between the starting/ending x/color values of the span and, if the x difference is 0, simply return because there are no pixels to draw:</p>
+Here's how the <strong>DrawSpan()</strong> function starts. We calculate the differences between the starting/ending x/color values of the span and, if the x difference is 0, simply return because there are no pixels to draw:
 
 ```c++
 void
@@ -252,14 +252,14 @@ Rasterizer::DrawSpan(const Span &span, int y)
     Color colordiff = span.Color2 - span.Color1;
 ```
 
-    <p>Next, we initialize a factor for interpolating the color between the beginning and end of the span, and calculate a step value for incrementing the factor each time the loop runs:</p>
+Next, we initialize a factor for interpolating the color between the beginning and end of the span, and calculate a step value for incrementing the factor each time the loop runs:
 
 ```c++
 ​    float factor = 0.0f;
     float factorStep = 1.0f / (float)xdiff;
 ```
 
-    <p>Finally, we loop through each x position in the span and set pixels using the y value passed to this function and a calculated color value:</p>
+Finally, we loop through each x position in the span and set pixels using the y value passed to this function and a calculated color value:
 
 ```c++
 ​    // draw each pixel in the span
@@ -270,8 +270,8 @@ Rasterizer::DrawSpan(const Span &span, int y)
 }
 ```
 
-    <p>The function is finished, and with that, our triangle rasterization algorithm is complete. Here's a screenshot of the demo program:</p>
+The function is finished, and with that, our triangle rasterization algorithm is complete. Here's a screenshot of the demo program:
 
     <img src="trianglerast.png" alt="Demo Screenshot" />
 
-    <p>The C++ source code for the demo can be found <a href="https://github.com/joshb/triangleraster">on GitHub</a>. The demo requires <a href="http://www.libsdl.org/">SDL</a>.</p>
+The C++ source code for the demo can be found <a href="https://github.com/joshb/triangleraster">on GitHub</a>. The demo requires <a href="http://www.libsdl.org/">SDL</a>.
