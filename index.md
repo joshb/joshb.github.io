@@ -12,9 +12,9 @@ I have written some [articles](articles/) over the years, primarily related to O
 
 I can be contacted by email at [josh@joshbeam.com](mailto:josh@joshbeam.com).
 
+{% for post in site.posts limit: 10 %}
 <hr>
 
-{% for post in site.posts limit: 10 %}
 ## [{{ post.title }}]({{ post.url }})
 ### {{ post.date | date: "%B %-d, %Y" }}
 
