@@ -4,6 +4,10 @@ title: Articles
 ---
 Below is a list of articles that I've written.
 
+- [Introduction to the Git Version Control System](introduction-to-git-version-control-system)
+
+  This article provides an introduction to the Git version control system, guiding you through the process of creating a new Git repository and making commits.
+
 - [Getting Started with the OpenGL Shading Language](getting_started_with_glsl/)
 
   This article provides an introduction to the OpenGL Shading Language (GLSL). It contains sample C and GLSL code, and is accompanied by a demo program with full source code.
