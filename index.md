@@ -2,7 +2,7 @@
 layout: post
 title: Home
 ---
-<div class="photo"><img src="files/photo.jpg" alt=""></div>
+<img id="photo" src="files/photo.jpg" alt="">
 
 Welcome to my website. I'm a software engineer whose interests include web development, 3D graphics programming, open source software, Linux, and Apple's platforms.
 
@@ -15,9 +15,11 @@ I can be contacted by email at [josh@joshbeam.com](mailto:josh@joshbeam.com).
 {% for post in site.posts limit: 10 %}
 <hr>
 
+<article>
 ## [{{ post.title }}]({{ post.url }})
 ### {{ post.date | date: "%B %-d, %Y" }}
 
 {{ post.content }}
+</article>
 
 {% endfor %}
