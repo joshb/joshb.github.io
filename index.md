@@ -15,11 +15,9 @@ I can be contacted by email at [josh@joshbeam.com](mailto:josh@joshbeam.com).
 {% for post in site.posts limit: 10 %}
 <hr>
 
-<article>
 ## [{{ post.title }}]({{ post.url }})
 ### {{ post.date | date: "%B %-d, %Y" }}
 
 {{ post.content }}
-</article>
 
 {% endfor %}
