@@ -12,13 +12,13 @@ Below is a list of articles that I've written.
 
   This article provides an introduction to the OpenGL Shading Language (GLSL). It contains sample C and GLSL code, and is accompanied by a demo program with full source code.
 
-- [Introduction to Software-based Rendering: Triangle Rasterization](triangle_rasterization/)
+- [Triangle Rasterization](triangle_rasterization/)
 
-  This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
+  This article presents an algorithm for drawing (or "rasterizing") triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
-- [Introduction to Software-based Rendering: Simple Line Drawing](simple_line_drawing/)
+- [Simple Line Drawing](simple_line_drawing/)
 
-  This tutorial starts off a series of articles on software-based graphics rendering by introducing a simple line drawing algorithm. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
+  This article presents a simple line drawing algorithm. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
 - [Cg Pixel Shaders in OpenGL](cg_pixel_shaders_in_opengl/)
 

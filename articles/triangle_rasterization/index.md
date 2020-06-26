@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "Tutorial - Introduction to Software-based Rendering: Triangle Rasterization"
+title: "Triangle Rasterization"
 date: 2009-01-19
 ---
 
-This article explains how to rasterize triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
+This article presents an algorithm for drawing (or "rasterizing") triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
-## Triangle Rasterization
+## Overview of Triangle Rasterization
 
 In our [previous article](../simple_line_drawing/), we implemented a function for drawing lines. This was adequate for drawing simple wireframes, such as the triangle consisting of three lines as displayed in the demo program, but now let's shift our attention to full triangle rasterization. This will enable us to draw fully shaded triangles with independent colors for each vertex. This is a bit more complicated than simple line drawing, but it will build on top of that knowledge.
 
