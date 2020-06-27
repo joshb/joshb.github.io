@@ -57,7 +57,7 @@ This class contains color, x, and y values for the two points that an edge consi
 
 ```c++
 Edge::Edge(const Color &color1, int x1, int y1,
-       const Color &color2, int x2, int y2)
+           const Color &color2, int x2, int y2)
 {
     if(y1 < y2) {
         Color1 = color1;
