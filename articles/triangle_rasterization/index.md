@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Triangle Rasterization"
+description: "This article presents an algorithm for rasterizing triangles. It contains sample C++ code."
 image: "trianglerast.png"
 date: 2009-01-19
 ---
