@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "Triangle Rasterization"
-description: "This article presents an algorithm for rasterizing triangles. It contains sample C++ code."
+description: "This article presents an algorithm for triangle rasterization, a fundamental graphics rendering technique used in game development. It contains sample C++ code."
 image: "trianglerast.png"
 date: 2009-01-19
 ---
 
-This article presents an algorithm for drawing (or "rasterizing") triangles. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
+This article presents an algorithm for triangle rasterization, a fundamental graphics rendering technique used in game development. It contains sample C++ code and is accompanied by a demo program with full source code that uses SDL for display.
 
 ## Overview of Triangle Rasterization
 
