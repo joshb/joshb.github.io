@@ -12,7 +12,7 @@
   <title>Josh Beam's Website</title>
   <meta property="og:title" content="Josh Beam's Website" />
   {% endif %}
-  <meta property="og:description" content="{{ post.excerpt }}" />
+  <meta property="og:description" content="{{ page.excerpt | strip_html }}" />
   {% if page.image %}
   <meta property="og:image" content="{{ site.url | append: page.url | append: page.image }}" />
   {% endif %}
