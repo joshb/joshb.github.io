@@ -8,9 +8,7 @@ This article presents an algorithm for drawing (or "rasterizing") triangles. It 
 
 ## Overview of Triangle Rasterization
 
-In our [previous article](../simple_line_drawing/), we implemented a function for drawing lines. This was adequate for drawing simple wireframes, such as the triangle consisting of three lines as displayed in the demo program, but now let's shift our attention to full triangle rasterization. This will enable us to draw fully shaded triangles with independent colors for each vertex. This is a bit more complicated than simple line drawing, but it will build on top of that knowledge.
-
-There are basically three steps to triangle rasterization. First, let's break triangle drawing down into a few separate stages, as shown in the figures below (each figure represents a 20x20 grid of pixels):
+There are three main steps to triangle rasterization, as illustrated in the figures below (each figure represents a 20x20 grid of pixels):
 
 <table cellspacing="0" cellpadding="4" border="0">
 <tbody>
@@ -34,7 +32,7 @@ There are basically three steps to triangle rasterization. First, let's break tr
 </tbody>
 </table>
 
-The first figure shows the three points (represented by black dots) that are the three vertices of the triangle. The second figure shows the *edges* of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
+The first figure shows the three points (represented by black dots) that are the three vertices of a triangle. The second figure shows the *edges* of the triangle; these are the three lines that connect the points and form an outline of the triangle. Last, we have the fully drawn triangle in the third figure, which is made up of horizontal lines of blue pixels that are within the boundaries of the triangle.
 
 So the first step is to use the three points to determine the edges of the triangle. Next, we loop through the y axis boundaries of the triangle to calculate the horizontal *spans* that the triangle consists of; these are the horizontal lines that will form the triangle. Any row of pixels within the outline of the triangle is a span. Finally, we loop through the x axis boundaries of each span to draw each individual pixel.
 
