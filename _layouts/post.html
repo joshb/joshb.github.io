@@ -3,7 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale = 1.0" />
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image }}" />
+  {% endif %}
   {% if page.title %}
+  <meta property="og:title" content="{{ page.title }}" />
   <title>{{ page.title }} - Josh Beam's Website</title>
   {% else %}
   <title>Josh Beam's Website</title>

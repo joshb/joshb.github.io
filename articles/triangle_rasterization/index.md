@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Triangle Rasterization"
+image: "trianglerast.png"
 date: 2009-01-19
 ---
 
