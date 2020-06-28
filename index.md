@@ -1,6 +1,5 @@
 ---
 layout: post
-title: Home
 ---
 <img id="photo" src="files/photo.jpg" alt="">
 
