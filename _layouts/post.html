@@ -17,6 +17,8 @@
   {% endif %}
   {% if page.image %}
   <meta property="og:image" content="{{ site.url | append: page.url | append: page.image }}" />
+  {% else %}
+  <meta property="og:image" content="{{ site.url | append: '/files/photo.jpg' }}" />
   {% endif %}
   <link href="/stylesheets/application.css" media="all" rel="stylesheet" />
   <link href="/stylesheets/syntax.css" media="all" rel="stylesheet" />
