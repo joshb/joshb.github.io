@@ -1,6 +1,5 @@
 ---
 title: Customizing Social Media Previews for Web Pages
-date: 2020-07-01
 description: How to use the Open Graph protocol to customize social media previews for web pages.
 ---
 I recently wanted to customize the preview that would be shown when sharing an article from my website through social media, and found that this can be accomplished by utilizing the [Open Graph protocol](https://ogp.me). This is a standard that was created by Facebook and is also supported by other platforms, such as Twitter.

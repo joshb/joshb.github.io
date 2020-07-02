@@ -1,6 +1,5 @@
 ---
 title: Getting Started with SDL
-date: 2019-01-03
 ---
 A number of years ago, I wrote a couple of tutorials on software-based rendering ([Simple Line Drawing](/articles/simple_line_drawing/) and [Triangle Rasterization](/articles/triangle_rasterization/)). I created sample programs to go along with those articles; those programs originally used [SDL](https://www.libsdl.org/) 1.2 in order to get graphics onto the screen, and I recently updated them to use SDL version 2. Having been away from SDL for a while, I was glad to see that it has continued to improve and remains very easy to use.
 
