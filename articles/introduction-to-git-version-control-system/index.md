@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Introduction to the Git Version Control System
 date: 2020-05-30
 ---

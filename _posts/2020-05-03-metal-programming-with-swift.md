@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Metal Programming with Swift
 date: 2020-05-03
 ---

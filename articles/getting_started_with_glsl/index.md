@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Tutorial - Getting Started with the OpenGL Shading Language (GLSL)
 date: 2010-12-30
 ---

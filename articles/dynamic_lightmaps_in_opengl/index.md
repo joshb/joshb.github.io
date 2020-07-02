@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Tutorial - Dynamic Lightmaps in OpenGL
 date: 2003-11-16
 ---

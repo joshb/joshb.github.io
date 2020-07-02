@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Getting Started with SDL
 date: 2019-01-03
 ---

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Tutorial - Cg Pixel Shaders in OpenGL
 date: 2004-07-02
 ---

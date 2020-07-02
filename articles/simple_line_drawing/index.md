@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Simple Line Drawing"
 date: 2009-01-03
 ---

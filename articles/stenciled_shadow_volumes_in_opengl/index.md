@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Tutorial - Stenciled Shadow Volumes in OpenGL
 date: 2004-01-18
 last_updated_date: 2008-08-31

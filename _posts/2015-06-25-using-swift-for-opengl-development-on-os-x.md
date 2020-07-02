@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Using Swift for OpenGL development on OS X
 date: 2015-06-25
 ---

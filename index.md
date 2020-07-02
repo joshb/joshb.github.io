@@ -1,6 +1,3 @@
----
-layout: post
----
 <img id="photo" src="files/photo.jpg" alt="">
 
 Welcome to my website. I'm a software engineer whose interests include web development, 3D graphics programming, open source software, Linux, and Apple's platforms.

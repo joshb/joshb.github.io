@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Customizing Social Media Previews for Web Pages
 date: 2020-07-01
 description: How to use the Open Graph protocol to customize social media previews for web pages.

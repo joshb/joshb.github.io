@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Articles
 ---
 Below is a list of articles that I've written.

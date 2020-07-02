@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Making a Bootable Windows 10 USB Drive on macOS High Sierra
 date: 2017-11-23
 ---

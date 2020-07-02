@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Triangle Rasterization"
 description: "This article presents an algorithm for triangle rasterization, a fundamental graphics rendering technique used in game development. It contains sample C++ code."
 image: "trianglerast.png"
