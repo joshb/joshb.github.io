@@ -28,7 +28,7 @@ Below are some links to downloads or separate pages for software that I've devel
 
   prtunnel is a program that tunnels TCP/IP connections in a variety of ways, including through HTTP and SOCKS5 proxy servers.
 
-- [jsrasterizer](../jsrasterizer/jsrasterizer/)
+- [jsrasterizer](../jsrasterizer/)
 
   A simple triangle rasterizer implemented with HTML, CSS, and JavaScript.
 
