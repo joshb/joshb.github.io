@@ -102,7 +102,7 @@ nav a:hover {
     margin: 1em;
     border: solid 1px black;
     width: 150px;
-    box-shadow: 2px 2px 12px black;
+    box-shadow: 2px 2px 16px #bbb;
 }
 
 footer {
