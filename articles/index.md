@@ -7,6 +7,10 @@ Below is a list of articles and papers that I've written.
 
   This article provides an introduction to the Git version control system, guiding you through the process of creating a new Git repository and making commits.
 
+- [Exploring Spatial Data Management in 3D Graphics and Game Engines](../files/Exploring Spatial Data Management in 3D Graphics and Game Engines.pdf)
+
+  This paper was written in 2016 as part of my Master of Software Engineering degree at [Auburn University](https://www.auburn.edu/). It describes several data structures for managing spatial data in real-time 3D graphics applications, and presents results from a simulation program that was developed to aid in measuring and comparing the performance of such data structures. The simulation program is a macOS application written in Swift that uses OpenGL for graphics rendering, and it is [available on GitHub](https://github.com/joshb/SpatialDataStructures).
+
 - [Security in Modern Web Applications](../files/Security in Modern Web Applications.pdf)
 
   This paper was written in 2013 as part of my Master of Software Engineering degree at [Auburn University](https://www.auburn.edu/). It describes various security-related best practices employed by web applications. Topics covered include operating system and web server security, database security, techniques for storing and verifying passwords, minimizing the risk of social engineering attacks, and preventing technical attacks such as those involving cross-site scripting and SQL injection.
