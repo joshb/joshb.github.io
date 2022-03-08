@@ -1,11 +1,15 @@
 ---
 title: Articles
 ---
-Below is a list of articles that I've written.
+Below is a list of articles and papers that I've written.
 
 - [Introduction to the Git Version Control System](introduction-to-git-version-control-system)
 
   This article provides an introduction to the Git version control system, guiding you through the process of creating a new Git repository and making commits.
+
+- [Security in Modern Web Applications](../files/Security in Modern Web Applications.pdf)
+
+  This paper was written in 2013 as part of my Master of Software Engineering degree at [Auburn University](https://www.auburn.edu/). It describes various security-related best practices employed by web applications. Topics covered include operating system and web server security, database security, techniques for storing and verifying passwords, minimizing the risk of social engineering attacks, and preventing technical attacks such as those involving cross-site scripting and SQL injection.
 
 - [Getting Started with the OpenGL Shading Language](getting_started_with_glsl/)
 
